@@ -57,12 +57,32 @@
                 </div>
             </dnd-grid-box>
         </dnd-grid-container>
+  <div class="components-container">
+    <split-pane v-on:resize="resize" :min-percent='20' :default-percent='30' split="vertical">
+      <template slot="paneL">
+        <div style="height: 100%; width:100%; background-color: red;"></div>
+      </template>
+      <template slot="paneR">
+        <split-pane split="horizontal">
+          <template slot="paneL">
+           <div style="height: 100%; width:100%; background-color: yellow;"></div>
+          </template>
+          <template slot="paneR">
+            <div style="height: 100%; width:100%; background-color: blue;"></div>
+          </template>
+        </split-pane>
+      </template>
+    </split-pane>
+  </div>
   </div>
 </template>
 
 <script>
 import { Container, Box } from '@dattn/dnd-grid';
 import Vue from 'vue/dist/vue.js';
+import splitPane from 'vue-splitpane';
+
+Vue.component('split-pane', splitPane);
 Vue.component('Container', Container); 
 Vue.component('Box', Box);
 export default {
@@ -147,6 +167,9 @@ export default {
             }
         },
   methods: {
+      resize(){
+        console.log('resize')
+      },
         onLayoutUpdate:  function(evt) {
                 this.layout = evt.layout
         },
@@ -178,6 +201,10 @@ watch: {
 </script>
 
 <style scoped>
+.components-container {
+		position: relative;
+		height: 100vh;
+	}
 p {
   font-size: 2em;
   text-align: center;

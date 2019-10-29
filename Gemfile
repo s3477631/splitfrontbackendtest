@@ -64,3 +64,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "foreman", "~> 0.86.0"
 
 gem "webpacker", "~> 4.0"
+
+gem "devise", "~> 4.7"
+
+gem "omniauth-github", "~> 1.3"

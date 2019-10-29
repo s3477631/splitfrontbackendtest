@@ -6,6 +6,7 @@
     "@rails/webpacker": "^4.0.7",
     "vue": "^2.6.10",
     "vue-loader": "^15.7.1",
+    "vue-splitpane": "^1.0.4",
     "vue-template-compiler": "^2.6.10"
   },
   "devDependencies": {
