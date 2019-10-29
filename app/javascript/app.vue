@@ -182,4 +182,12 @@ p {
   font-size: 2em;
   text-align: center;
 }
+  .dnd-grid-container {
+      border: 2px solid black;
+
+    }
+  .demo-box {
+        width: 100%;
+        height: 100%;
+    }
 </style>
