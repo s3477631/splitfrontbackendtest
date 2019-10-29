@@ -19,7 +19,7 @@ import App from '../app.vue'
 
 import Vue from 'vue/dist/vue.js';
 
-import '@dattn/dnd-grid/dist/dnd-grid.css'
+import '@dattn/dnd-grid/dist/dnd-grid.css';
 // optionally import default styles
 
 
