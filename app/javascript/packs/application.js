@@ -53,3 +53,12 @@ Vue.directive("pan", {
 		}
 	}
 });
+
+Vue.directive("press", { 
+    bind: function(el, binding){
+        if (typeof binding.value === "function") {
+            const mc = new Hammer(el);
+			mc.on("press", binding.value);
+        }
+    }
+});

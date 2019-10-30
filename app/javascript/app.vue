@@ -106,9 +106,12 @@
 <ul v-pan="onPan" ref="list" class="slider__list">
   <li><div style="height: 20vh; width: 20vw; background-color: #bbb;"></div></li>
 </ul>
-<ul v-pan="onTap" ref="list" class="slider__list">
+<ul v-tap="onTap" ref="list" class="slider__list">
   <li><div style="height: 20vh; width: 20vw; background-color: orange;"></div></li>
 </ul>
+<ul v-press="onPress">
+  <li><div style="height: 20vh; width: 20vw; background-color: pink;"></div></li>
+  </ul>
 
 <h2>{{tapOutput}}</h2>
 <h2>{{slideOutput}}</h2>
@@ -222,6 +225,9 @@ export default {
     },
       onTap(event){  
       this.tapOutput = event
+      },
+      onPress(event){
+        console.log(event)
       },
         onLayoutUpdate:  function(evt) {
                 this.layout = evt.layout
