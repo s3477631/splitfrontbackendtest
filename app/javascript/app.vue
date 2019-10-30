@@ -115,6 +115,7 @@
 
 <h2>{{tapOutput}}</h2>
 <h2>{{slideOutput}}</h2>
+<h2>{{pressOutput}}</h2>
   </div>
 </template>
 
@@ -135,6 +136,7 @@ export default {
       paneSize: 33,
       slideOutput: '', 
       tapOutput: '',
+      pressOutput: '',
      cellSize: {
                     w: 100,
                     h: 100
@@ -227,7 +229,7 @@ export default {
       this.tapOutput = event
       },
       onPress(event){
-        console.log(event)
+        this.pressOutput = event
       },
         onLayoutUpdate:  function(evt) {
                 this.layout = evt.layout
