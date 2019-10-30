@@ -83,11 +83,11 @@
   </div> -->
 
 
-<splitpanes id="adjustbro" v-press="onPress" class="default-theme" horizontal :push-other-panes="false" style="height: 100vh; width: 100vw;">
-  <pane @resize="verticalTopSize = $event[0];resizeTOPHIGH();" ref="vertical_top">
-  <splitpanes  @resize="topPaneWidthSize = $event[0];resizeTOPWIDE();"  :push-other-panes="false">
+<splitpanes id="adjustbro" v-press="onPress" class="default-theme" horizontal :push-other-panes="false" @resize="verticalTopSize = $event[0];resizeTOPHIGH();" style="height: 100vh; width: 100vw;">
+  <pane ref="vertical_top">
+  <splitpanes :push-other-panes="false">
      <pane ref='top_left' > 
-    <span style="display: flex; color: white; font-size: 6vw;">T.Left <span style="font-size: 4vw;">{{ topLeftpane}}%</span></span>
+    <span style="display: flex; color: white; font-size: 6vw;">T.Left <span style="font-size: 4vw;">{{ topLeftpane}}%</span>{{Math.round(firstRow)}}</span>
   </pane>
   <pane>
     <span style="display: flex; color: white; font-size: 6vw;">Header <span style="font-size: 4vw;">{{ topMiddlepane}}%</span></span>
@@ -97,10 +97,10 @@
   </pane>
   </splitpanes>
   </pane>
-  <pane>
+  <pane ref="vertical_middle">
     <splitpanes @resize="middlePaneWideSize = $event[0]; resizeMIDDLEWIDE();" :push-other-panes="false">
       <pane ref="middle_left">
-           <span style="display: flex; color: white; font-size: 6vw;">Left <span style="font-size: 4vw;">{{ middleLeftpane}}%</span></span>
+           <span style="display: flex; color: white; font-size: 6vw;">Left <span style="font-size: 4vw;">{{ middleLeftpane}}%{{Math.round(secondRow)}}</span></span>
       </pane>
       <pane>
           <span style="display: flex; color: white; font-size: 6vw;">middle <span style="font-size: 4vw;">{{middleMiddlepane}}%</span></span>
@@ -110,10 +110,10 @@
       </pane>
     </splitpanes>
   </pane>
-   <pane>
+   <pane ref="vertical_bottom">
   <splitpanes @resize="bottomPaneWideSize = $event[0]; resizeBOTTOMWIDE();" :push-other-panes="false">
   <pane ref='bottom_left'>
-    <span style="display: flex; color: white; font-size: 6vw;"> B.Left <span style="font-size: 4vw;">{{ bottomLeftpane}}%</span></span>
+    <span style="display: flex; color: white; font-size: 6vw;"> B.Left <span style="font-size: 4vw;">{{ bottomLeftpane}}%{{Math.round(thirdRow)}}</span></span>
   </pane>
   <pane ref='bottom_middle'>
     <span style="display: flex; color: white; font-size: 6vw;"> Footer <span style="font-size: 4vw;">{{ bottomMiddlepane}}%</span></span>
@@ -159,7 +159,11 @@ export default {
       paneWidth: 33.33,
        panesNumber: 5,
       topPaneWidthSize: 100, 
+      verticalTopSize: 100,
       middlePaneWideSize: 100,
+        firstRow: 0, 
+        secondRow: 0, 
+        thirdRow: 0,
         topLeftpane: 0, 
         topMiddlepane: 0,
         topRightpane: 0,
@@ -252,36 +256,25 @@ export default {
         },
   methods: {
     resizeTOPHIGH(){
-      var test = this.$refs.vertical_top
-      console.log(test)
+      this.firstRow = parseInt(this.$refs.vertical_top.style.height)
+      this.secondRow = parseInt(this.$refs.vertical_middle.style.height)
+      this.thirdRow = parseInt(this.$refs.vertical_bottom.style.height)
+    
     },
-      testmethod(id){
-        console.log(id)
-      },
-      widthOutput(){
-       var globalwidth = this.paneSize.size
-  console.log('hello')
-        this.windowpanes.topLeftpane = globalwidth
-        this.windowpanes.topRightpane = 100 - this.windowpanes.topLeftpane
-        this.windowpanes.topMiddlepane = this.windowpanes.topLeftpane + this.windowpanes.topRightpane
-     
-
-      },
-      heightOutput(){
-
-      },
+  
+   
       resizeTOPWIDE(){
-       this.topLeftpane = parseInt(this.$refs.top_left.style.width).toFixed()
+       this.topLeftpane = parseInt(this.$refs.top_left.style.width)
        this.topMiddlepane = 100 - (parseInt(this.$refs.top_left.style.width) + parseInt(this.$refs.top_right.style.width))
        this.topRightpane = parseInt(this.$refs.top_right.style.width)
       },
        resizeMIDDLEWIDE(){
-       this.middleLeftpane = parseInt(this.$refs.middle_left.style.width).toFixed()
+       this.middleLeftpane = parseInt(this.$refs.middle_left.style.width)
        this.middleMiddlepane = 100 - (parseInt(this.$refs.middle_left.style.width) + parseInt(this.$refs.middle_right.style.width))
        this.middleRightpane = parseInt(this.$refs.middle_right.style.width)
       },
         resizeBOTTOMWIDE(){
-       this.bottomLeftpane = parseInt(this.$refs.bottom_left.style.width).toFixed()
+       this.bottomLeftpane = parseInt(this.$refs.bottom_left.style.width)
        this.bottomMiddlepane = 100 - (parseInt(this.$refs.bottom_left.style.width) + parseInt(this.$refs.bottom_right.style.width))
        this.bottomRightpane = parseInt(this.$refs.bottom_right.style.width)
       },
@@ -297,15 +290,11 @@ export default {
       },
       onPress(event){
         // this.pressOutput = event
-        this.panesNumber++
+    
         console.log(event)
         if(event.target.className == 'splitpanes__pane'){
-          Vue.nextTick(function () {
-                 var newDiv = '<splitpanes :push-other-panes="false" horizontal style="height: 100px"><div class="splitpanes__splitter" data-splitpanes-index="1"><span style="color: blue; font-size: 1.2em; height: 100%; width: 100%">Left</span></div></pane><div class="splitpanes__splitter"><pane><span style="color: blue; font-size: 1.2em; height: 100%; width: 100%">Center</span></pane></div><div class="splitpanes__splitter"><pane><span style="color: blue; font-size: 1.2em; height: 100%; width: 100%;">Right</span></pane></div></splitpanes>'
-          var heyman =  event.target.firstChild
-           return heyman.innerHTML = newDiv;
+                event.target.innerHTML = '<img src="https://bit.ly/34ebo0M" height= "100%" width="100%"></img>'
   // do something cool
-})
      
           // var testbro = '<splitpanes :push-other-panes="false"><pane><span style="display: flex; color: white; font-size: 3em;">Left</span></pane><pane><span style="display: flex; color: white; font-size: 3em;">Center</span></pane><pane><span style="display: flex; color: white; font-size: 3em;">Right</span></pane></splitpanes>'
           // var testboi = '<splitpanes :push-other-panes="false"><pane><span style="display: flex; color: white; font-size: 3em;">Left</span></pane><pane><span style="display: flex; color: white; font-size: 3em;">Center</span></pane><pane><span style="display: flex; color: white; font-size: 3em;">Right</span></pane></splitpanes>'
