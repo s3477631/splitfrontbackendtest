@@ -60,7 +60,14 @@
   <div class="components-container">
     <split-pane v-on:resize="resize" :min-percent='20' :default-percent='30' split="vertical">
       <template slot="paneL">
-        <div style="height: 100%; width:100%; background-color: red;"></div>
+        <split-pane split="horizontal">
+           <template slot="paneR">
+        <div style="height: 100%; width:100%; background-color: orange;"></div>
+      </template>
+      <template slot="paneL"> 
+         <div style="height: 100%; width:100%; background-color: pink;"></div>
+          </template>
+        </split-pane>
       </template>
       <template slot="paneR">
         <split-pane split="horizontal">
@@ -74,6 +81,37 @@
       </template>
     </split-pane>
   </div>
+<splitpanes class="default-theme" horizontal :push-other-panes="false" style="height: 400px">
+  <pane>
+    <span>1</span>
+  </pane>
+  <pane>
+    <splitpanes :push-other-panes="false">
+      <pane>
+        <span>2</span>
+      </pane>
+      <pane>
+        <span>3</span>
+      </pane>
+      <pane>
+        <span>4</span>
+      </pane>
+    </splitpanes>
+  </pane>
+  <pane>
+    <span>5</span>
+  </pane>
+</splitpanes>
+
+<ul v-pan="onPan" ref="list" class="slider__list">
+  <li><div style="height: 20vh; width: 20vw; background-color: #bbb;"></div></li>
+</ul>
+<ul v-pan="onTap" ref="list" class="slider__list">
+  <li><div style="height: 20vh; width: 20vw; background-color: orange;"></div></li>
+</ul>
+
+<h2>{{tapOutput}}</h2>
+<h2>{{slideOutput}}</h2>
   </div>
 </template>
 
@@ -82,13 +120,18 @@ import { Container, Box } from '@dattn/dnd-grid';
 import Vue from 'vue/dist/vue.js';
 import splitPane from 'vue-splitpane';
 
+import { Splitpanes, Pane } from 'splitpanes'
+
+
 Vue.component('split-pane', splitPane);
 Vue.component('Container', Container); 
 Vue.component('Box', Box);
 export default {
   data: function () {
     return {
-
+      paneSize: 33,
+      slideOutput: '', 
+      tapOutput: '',
      cellSize: {
                     w: 100,
                     h: 100
@@ -170,6 +213,16 @@ export default {
       resize(){
         console.log('resize')
       },
+       onPan(event) {
+          this.slideOutput = event;
+      const deltaX = event.deltaX; // moved distance on x-axis
+      const deltaY = event.deltaY; // moved distance on y-axis
+      const isFinal = event.isFinal; // pan released
+      const direction = event.direction; // 0 = none, 2 = left, 4 = right, 8 = up, 16 = down,
+    },
+      onTap(event){  
+      this.tapOutput = event
+      },
         onLayoutUpdate:  function(evt) {
                 this.layout = evt.layout
         },
@@ -191,7 +244,8 @@ watch: {
     }
   },
   components: {
-      
+        Splitpanes,
+        Pane,
       DndGridContainer: Container,
     DndGridBox: Box,
 
@@ -201,6 +255,22 @@ watch: {
 </script>
 
 <style scoped>
+splitpanes {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height:100vh;
+  width: 100vw;
+}
+
+pane {
+  font-family: Helvetica, Arial, sans-serif;
+  color: #fff;
+    height: 100vh;
+  width: 25vw;
+  font-size: 5em;
+  opacity: 0.6;
+}
 .components-container {
 		position: relative;
 		height: 100vh;

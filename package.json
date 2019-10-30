@@ -4,6 +4,8 @@
   "dependencies": {
     "@dattn/dnd-grid": "^0.0.14",
     "@rails/webpacker": "^4.0.7",
+    "hammerjs": "^2.0.8",
+    "splitpanes": "^2.0.0",
     "vue": "^2.6.10",
     "vue-loader": "^15.7.1",
     "vue-splitpane": "^1.0.4",

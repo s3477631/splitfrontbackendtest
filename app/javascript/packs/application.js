@@ -21,7 +21,9 @@ import Vue from 'vue/dist/vue.js';
 
 import '@dattn/dnd-grid/dist/dnd-grid.css';
 // optionally import default styles
+import 'splitpanes/dist/splitpanes.css'
 
+import Hammer from 'hammerjs'
 
 Vue.component('app', App)
 document.addEventListener('DOMContentLoaded', () => {
@@ -32,3 +34,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   console.log(app)
 })
+
+Vue.directive("pan", {
+    bind: function(el, binding) {
+      if (typeof binding.value === "function") {
+        const mc = new Hammer(el);
+        mc.get("pan").set({ direction: Hammer.DIRECTION_ALL });
+        mc.on("pan", binding.value);
+      }
+    }
+  });
+
+  Vue.directive("tap", {
+	bind: function(el, binding) {
+		if (typeof binding.value === "function") {
+			const mc = new Hammer(el);
+			mc.on("tap", binding.value);
+		}
+	}
+});
