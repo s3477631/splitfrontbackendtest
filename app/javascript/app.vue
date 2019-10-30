@@ -84,42 +84,42 @@
 
 
 <splitpanes id="adjustbro" v-press="onPress" class="default-theme" horizontal :push-other-panes="false" style="height: 100vh; width: 100vw;">
-  <pane>
-  <splitpanes :push-other-panes="false">
-     <pane>
-    <span style="display: flex; color: white; font-size: 10vw;">T.Left</span>
+  <pane @resize="verticalTopSize = $event[0];resizeTOPHIGH();" ref="vertical_top">
+  <splitpanes  @resize="topPaneWidthSize = $event[0];resizeTOPWIDE();"  :push-other-panes="false">
+     <pane ref='top_left' > 
+    <span style="display: flex; color: white; font-size: 6vw;">T.Left <span style="font-size: 4vw;">{{ topLeftpane}}%</span></span>
   </pane>
   <pane>
-    <span style="display: flex; color: white; font-size: 10vw;">Header</span>
+    <span style="display: flex; color: white; font-size: 6vw;">Header <span style="font-size: 4vw;">{{ topMiddlepane}}%</span></span>
   </pane>
-   <pane>
-    <span style="display: flex; color: white; font-size: 10vw;">T.Right</span>
+   <pane ref='top_right' >
+    <span style="display: flex; color: white; font-size: 6vw;">T.Right <span style="font-size: 4vw;">{{ topRightpane}}%</span></span>
   </pane>
   </splitpanes>
   </pane>
   <pane>
-    <splitpanes :push-other-panes="false">
-      <pane>
-           <span style="display: flex; color: white; font-size: 10vw;">Left</span>
+    <splitpanes @resize="middlePaneWideSize = $event[0]; resizeMIDDLEWIDE();" :push-other-panes="false">
+      <pane ref="middle_left">
+           <span style="display: flex; color: white; font-size: 6vw;">Left <span style="font-size: 4vw;">{{ middleLeftpane}}%</span></span>
       </pane>
       <pane>
-          <span style="display: flex; color: white; font-size: 10vw;">Center</span>
+          <span style="display: flex; color: white; font-size: 6vw;">middle <span style="font-size: 4vw;">{{middleMiddlepane}}%</span></span>
       </pane>
-      <pane>
-       <span style="display: flex; color: white; font-size: 10vw;">Right</span>
+      <pane ref="middle_right">
+       <span style="display: flex; color: white; font-size: 6vw;">Right <span style="font-size: 4vw;">{{ middleRightpane}}%</span></span>
       </pane>
     </splitpanes>
   </pane>
    <pane>
-  <splitpanes :push-other-panes="false">
-     <pane>
-    <span style="display: flex; color: white; font-size: 10vw;">B.Left</span>
+  <splitpanes @resize="bottomPaneWideSize = $event[0]; resizeBOTTOMWIDE();" :push-other-panes="false">
+  <pane ref='bottom_left'>
+    <span style="display: flex; color: white; font-size: 6vw;"> B.Left <span style="font-size: 4vw;">{{ bottomLeftpane}}%</span></span>
   </pane>
-  <pane>
-    <span style="display: flex; color: white; font-size: 10vw;">Footer</span>
+  <pane ref='bottom_middle'>
+    <span style="display: flex; color: white; font-size: 6vw;"> Footer <span style="font-size: 4vw;">{{ bottomMiddlepane}}%</span></span>
   </pane>
-   <pane>
-    <span style="display: flex; color: white; font-size: 10vw;">B.Right</span>
+   <pane ref="bottom_right">
+    <span style="display: flex; color: white; font-size: 6vw;"> B.Right <span style="font-size: 4vw;">{{ bottomRightpane}}%</span></span>
   </pane>
   </splitpanes>
   </pane>
@@ -156,8 +156,19 @@ Vue.component('Box', Box);
 export default {
   data: function () {
     return {
+      paneWidth: 33.33,
        panesNumber: 5,
-      paneSize: 33,
+      topPaneWidthSize: 100, 
+      middlePaneWideSize: 100,
+        topLeftpane: 0, 
+        topMiddlepane: 0,
+        topRightpane: 0,
+        middleLeftpane: 0,
+        middleMiddlepane: 0,
+        middleRightpane: 0,
+        bottomLeftpane: 0,
+        bottomMiddlepane: 0,
+        bottomRightpane: 0,
       slideOutput: '', 
       tapOutput: '',
       pressOutput: '',
@@ -236,15 +247,43 @@ export default {
                 return this.layout.filter((box) => {
                     return box.id !== 'settings'
                 })
-            }
+            },
+            
         },
   methods: {
+    resizeTOPHIGH(){
+      var test = this.$refs.vertical_top
+      console.log(test)
+    },
       testmethod(id){
         console.log(id)
       },
-      
-      resize(){
-        console.log('resize')
+      widthOutput(){
+       var globalwidth = this.paneSize.size
+  console.log('hello')
+        this.windowpanes.topLeftpane = globalwidth
+        this.windowpanes.topRightpane = 100 - this.windowpanes.topLeftpane
+        this.windowpanes.topMiddlepane = this.windowpanes.topLeftpane + this.windowpanes.topRightpane
+     
+
+      },
+      heightOutput(){
+
+      },
+      resizeTOPWIDE(){
+       this.topLeftpane = parseInt(this.$refs.top_left.style.width).toFixed()
+       this.topMiddlepane = 100 - (parseInt(this.$refs.top_left.style.width) + parseInt(this.$refs.top_right.style.width))
+       this.topRightpane = parseInt(this.$refs.top_right.style.width)
+      },
+       resizeMIDDLEWIDE(){
+       this.middleLeftpane = parseInt(this.$refs.middle_left.style.width).toFixed()
+       this.middleMiddlepane = 100 - (parseInt(this.$refs.middle_left.style.width) + parseInt(this.$refs.middle_right.style.width))
+       this.middleRightpane = parseInt(this.$refs.middle_right.style.width)
+      },
+        resizeBOTTOMWIDE(){
+       this.bottomLeftpane = parseInt(this.$refs.bottom_left.style.width).toFixed()
+       this.bottomMiddlepane = 100 - (parseInt(this.$refs.bottom_left.style.width) + parseInt(this.$refs.bottom_right.style.width))
+       this.bottomRightpane = parseInt(this.$refs.bottom_right.style.width)
       },
        onPan(event) {
           this.slideOutput = event;
@@ -293,6 +332,7 @@ watch: {
      layout: function(newvalue, oldvalue){
        console.log(newvalue)
     }
+   
   },
   components: {
         Splitpanes,
