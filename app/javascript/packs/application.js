@@ -21,7 +21,7 @@ import Vue from 'vue/dist/vue.js';
 
 import '@dattn/dnd-grid/dist/dnd-grid.css';
 // optionally import default styles
-import 'splitpanes/dist/splitpanes.css'
+
 
 import Hammer from 'hammerjs'
 
