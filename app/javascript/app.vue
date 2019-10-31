@@ -133,6 +133,7 @@
         <li>Blank space</li>
          <li>Text</li>
     </ul>
+    <button @click="showFeatureAdd = false" style="width: 100%; color: white; background-color: red;  position: absolute; bottom: 0;">CLOSE</button>
   </div>
 
 <!-- <ul v-pan="onPan" ref="list" class="slider__list">
@@ -297,7 +298,7 @@ export default {
     },
       onTap(event){  
         event.preventDefault()
-        this.showFeatureAdd = false
+   
       },
       onPress(event){
         // this.pressOutput = event
