@@ -125,8 +125,8 @@
   </pane>
 </splitpanes>
 
-<div style="height: 30vh; width: 80vw; background-color: red; position: relative; z-index: 3; top: -100vh; left: 10vw; right: 10vw; border: 1px solid "> 
-    <input type="text" style="width: 100vw:"/>
+<div v-if="showFeatureAdd" style="height: 30vh; width: 80vw; background-color: red; position: relative; z-index: 3; top: -100vh; left: 10vw; right: 10vw; border: 1px solid "> 
+    <input type="text" autofocus style="width: 100%;" placeholder="Search for elements to add"/>
     <ul style="list-style: none;">
       <li>Picture</li>
        <li>Video</li>
@@ -165,6 +165,7 @@ Vue.component('Box', Box);
 export default {
   data: function () {
     return {
+      showFeatureAdd: false,
       paneWidth: 33.33,
        panesNumber: 5,
       topPaneWidthSize: 100, 
@@ -295,14 +296,15 @@ export default {
       const direction = event.direction; // 0 = none, 2 = left, 4 = right, 8 = up, 16 = down,
     },
       onTap(event){  
-    console.log(event.target)
+        event.preventDefault()
+        this.showFeatureAdd = false
       },
       onPress(event){
         // this.pressOutput = event
-    
+        this.showFeatureAdd = true
          event.preventDefault()
         if(event.target.className == 'splitpanes__pane'){
-                event.target.innerHTML = '<img src="https://bit.ly/34ebo0M" height= "100%" width="100%"></img>'
+         event.target.innerHTML = '<img src="https://bit.ly/34ebo0M" height= "100%" width="100%"></img>'
       // do something cool
      
           // var testbro = '<splitpanes :push-other-panes="false"><pane><span style="display: flex; color: white; font-size: 3em;">Left</span></pane><pane><span style="display: flex; color: white; font-size: 3em;">Center</span></pane><pane><span style="display: flex; color: white; font-size: 3em;">Right</span></pane></splitpanes>'
