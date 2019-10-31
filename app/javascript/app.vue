@@ -125,6 +125,15 @@
   </pane>
 </splitpanes>
 
+<div style="height: 30vh; width: 80vw; background-color: red; position: relative; z-index: 3; top: -100vh; left: 10vw; right: 10vw; border: 1px solid "> 
+    <input type="text" style="width: 100vw:"/>
+    <ul style="list-style: none;">
+      <li>Picture</li>
+       <li>Video</li>
+        <li>Blank space</li>
+         <li>Text</li>
+    </ul>
+  </div>
 
 <!-- <ul v-pan="onPan" ref="list" class="slider__list">
   <li><div style="height: 20vh; width: 20vw; background-color: #bbb;"></div></li>
@@ -291,10 +300,10 @@ export default {
       onPress(event){
         // this.pressOutput = event
     
-        console.log(event)
+         event.preventDefault()
         if(event.target.className == 'splitpanes__pane'){
-                event.target.innerHTML = '<input type="text" name="fname">'
-        // do something cool
+                event.target.innerHTML = '<img src="https://bit.ly/34ebo0M" height= "100%" width="100%"></img>'
+      // do something cool
      
           // var testbro = '<splitpanes :push-other-panes="false"><pane><span style="display: flex; color: white; font-size: 3em;">Left</span></pane><pane><span style="display: flex; color: white; font-size: 3em;">Center</span></pane><pane><span style="display: flex; color: white; font-size: 3em;">Right</span></pane></splitpanes>'
           // var testboi = '<splitpanes :push-other-panes="false"><pane><span style="display: flex; color: white; font-size: 3em;">Left</span></pane><pane><span style="display: flex; color: white; font-size: 3em;">Center</span></pane><pane><span style="display: flex; color: white; font-size: 3em;">Right</span></pane></splitpanes>'
