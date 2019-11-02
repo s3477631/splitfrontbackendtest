@@ -15,15 +15,15 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-import App from '../app.vue'
-
-import Vue from 'vue/dist/vue.js';
-
-import '@dattn/dnd-grid/dist/dnd-grid.css';
+import Hammer from 'hammerjs';
 // optionally import default styles
+import 'splitpanes/dist/splitpanes.css';
+import Vue from 'vue/dist/vue.js';
+import App from '../app.vue';
 
 
-import Hammer from 'hammerjs'
+
+
 
 Vue.component('app', App)
 document.addEventListener('DOMContentLoaded', () => {

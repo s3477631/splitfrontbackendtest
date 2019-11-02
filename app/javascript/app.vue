@@ -1,89 +1,6 @@
 <template>
   <div id="app">
- <!-- <dnd-grid-container
-            :layout.sync="layout"
-            :cellSize="cellSize"
-            :maxColumnCount="maxColumnCount"
-            :maxRowCount="maxRowCount"
-            :margin="margin"
-            :bubbleUp="bubbleUp"
-            
-        >
-            <dnd-grid-box
-                boxId="settings"
-                dragSelector="div.card-header"
-            >
-                <div class="card demo-box">
-
-                    <div class="card-body row" style="background-color: red;">
-                        <div class="form-group row">
-                            <label for="settings-margin-input" class="row-sm-4 row-form-label">Margin</label>
-                            <div class="col-sm-8">
-                                <input class="form-control" type="number" v-model.number="margin" id="settings-margin-input">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="settings-grid-size-w-input" class="row-sm-4 rowl-form-label">Cell Size</label>
-                            <div class="col-sm-4">
-                                <input class="form-control" type="number" v-model.number="cellSize.w" id="settings-grid-size-w-input">
-                            </div>
-                            <div class="col-sm-4">
-                                <input class="form-control" type="number" v-model.number="cellSize.h">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="settings-bubble-up-input" class="row-sm-4 row-form-label">Bubble Up</label>
-                            <div class="row-sm-8">
-                                <input type="checkbox" v-model="bubbleUp" id="settings-bubble-up-input">
-                            </div>
-                        </div>
-                        <button class="btn btn-success" @click="boxCount++">Add Box</button>
-                        <button class="btn btn-danger" @click="boxCount = Math.max(0, boxCount-1)">Remove Box</button>
-                    </div>
-                </div>
-            </dnd-grid-box>
-            <dnd-grid-box
-                v-for="number in boxCount"
-                :boxId="number"
-                :key="number"
-                dragSelector="div.card-header"
-                resizeVisible
-                offset
-            >
-                <div class="card demo-box">
-                    <div class="card-header">
-                        Box {{ number }}
-                    </div>
-                </div>
-            </dnd-grid-box>
-        </dnd-grid-container>
-  <div class="components-container">
-    <split-pane v-on:resize="resize" :min-percent='20' :default-percent='30' split="vertical">
-      <template slot="paneL">
-        <split-pane split="horizontal">
-           <template slot="paneR">
-        <div style="height: 100%; width:100%; background-color: orange;"></div>
-      </template>
-      <template slot="paneL"> 
-         <div style="height: 100%; width:100%; background-color: pink;"></div>
-          </template>
-        </split-pane>
-      </template>
-      <template slot="paneR">
-        <split-pane split="horizontal">
-          <template slot="paneL">
-           <div style="height: 100%; width:100%; background-color: yellow;"></div>
-          </template>
-          <template slot="paneR">
-            <div style="height: 100%; width:100%; background-color: blue;"></div>
-          </template>
-        </split-pane>
-      </template>
-    </split-pane>
-  </div> -->
-
-
-<splitpanes id="adjustbro" v-press="onPress" class="default-theme" horizontal :push-other-panes="false" @resize="verticalTopSize = $event[0];resizeTOPHIGH();" style="height: 100vh; width: 100vw;">
+<splitpanes v-press="onPress" id="adjustfit" class="default-theme" horizontal :push-other-panes="false" @resize="verticalTopSize = $event[0];resizeTOPHIGH();" style="height: 100vh; width: 100vw; margin-top: -60px; display: flex;">
   <pane ref="vertical_top">
   <splitpanes :push-other-panes="false">
      <pane ref='top_left' > 
@@ -125,9 +42,9 @@
   </pane>
 </splitpanes>
 
-<div v-if="showFeatureAdd" style="height: 30vh; width: 80vw; background-color: red; position: relative; z-index: 3; top: -100vh; left: 10vw; right: 10vw; border: 1px solid "> 
+<div v-if="showFeatureAdd" style="height: 30vh; width: 80vw; background-color: red; position: relative; z-index: 3; top: -100vh; left: 10vw; right: 10vw; border: 1px solid orange;"> 
     <input type="text" autofocus style="width: 100%;" placeholder="Search for elements to add"/>
-    <ul style="list-style: none;">
+    <ul class='searchBox' style="list-style: none;">
       <li>Picture</li>
        <li>Video</li>
         <li>Blank space</li>
@@ -136,33 +53,18 @@
     <button @click="showFeatureAdd = false" style="width: 100%; color: white; background-color: red;  position: absolute; bottom: 0;">CLOSE</button>
   </div>
 
-<!-- <ul v-pan="onPan" ref="list" class="slider__list">
-  <li><div style="height: 20vh; width: 20vw; background-color: #bbb;"></div></li>
-</ul>
-<ul v-tap="onTap" ref="list" id="dude" class="slider__list">
-  <li><div style="height: 20vh; width: 20vw; background-color: orange;"></div></li>
-</ul>
-<ul v-press="onPress" id="hey">
-  <li><div style="height: 20vh; width: 20vw; background-color: pink;"></div></li>
-  </ul>
-
-<h2>{{tapOutput}}</h2>
-<h2>{{slideOutput}}</h2>
-<h2>{{pressOutput}}</h2> -->
   </div>
 </template>
 
 <script>
-import { Container, Box } from '@dattn/dnd-grid';
 import Vue from 'vue/dist/vue.js';
-import splitPane from 'vue-splitpane';
 
 import { Splitpanes, Pane } from 'splitpanes'
-import 'splitpanes/dist/splitpanes.css'
 
-Vue.component('split-pane', splitPane);
-Vue.component('Container', Container); 
-Vue.component('Box', Box);
+
+Vue.component('splitpanes', Splitpanes); 
+Vue.component('pane', Pane)
+
 export default {
   data: function () {
     return {
@@ -302,9 +204,11 @@ export default {
       },
       onPress(event){
         // this.pressOutput = event
-        this.showFeatureAdd = true
+       
          event.preventDefault()
+         console.log(event)
         if(event.target.className == 'splitpanes__pane'){
+           this.showFeatureAdd = true
          event.target.innerHTML = '<img src="https://bit.ly/34ebo0M" height= "100%" width="100%"></img>'
       // do something cool
      
@@ -333,13 +237,10 @@ watch: {
      layout: function(newvalue, oldvalue){
        console.log(newvalue)
     }
-   
   },
   components: {
         Splitpanes,
-        Pane,
-      DndGridContainer: Container,
-    DndGridBox: Box,
+        Pane
 
   }
 }
@@ -347,68 +248,15 @@ watch: {
 </script>
 
 <style scoped>
-.splitpanes{display:-webkit-box;display:-ms-flexbox;display:flex;width:100%;height:100%}.splitpanes--vertical{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}.splitpanes--horizontal{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}.splitpanes--dragging *{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.splitpanes__pane{width:100%;height:100%;overflow:hidden;-webkit-transition:width .2s ease-out,height .2s ease-out;transition:width .2s ease-out,height .2s ease-out}.splitpanes--dragging .splitpanes__pane{-webkit-transition:none;transition:none}.splitpanes__splitter{-ms-touch-action:none;touch-action:none}.splitpanes--vertical>.splitpanes__splitter{min-width:3px;cursor:col-resize}.splitpanes--horizontal>.splitpanes__splitter{min-height:3px;cursor:row-resize}.splitpanes.default-theme .splitpanes__pane{background-color:#bbb}.splitpanes.default-theme .splitpanes__splitter{background-color:#fff;-webkit-box-sizing:border-box;box-sizing:border-box;position:relative}.splitpanes.default-theme .splitpanes__splitter:after,.splitpanes.default-theme .splitpanes__splitter:before{content:"";position:absolute;top:50%;left:50%;background-color:rgba(0,0,0,.15);-webkit-transition:background-color .3s;transition:background-color .3s}.splitpanes.default-theme .splitpanes__splitter:hover:after,.splitpanes.default-theme .splitpanes__splitter:hover:before{background-color:rgba(0,0,0,.25)}.default-theme.splitpanes .splitpanes .splitpanes__splitter{z-index:1}.default-theme.splitpanes--vertical>.splitpanes__splitter,.default-theme .splitpanes--vertical>.splitpanes__splitter{width:14px;border-left:1px solid rgb(255, 1, 1);margin-left:-1px}.default-theme.splitpanes--vertical>.splitpanes__splitter:after,.default-theme .splitpanes--vertical>.splitpanes__splitter:after,.default-theme.splitpanes--vertical>.splitpanes__splitter:before,.default-theme .splitpanes--vertical>.splitpanes__splitter:before{-webkit-transform:translateY(-50%);transform:translateY(-50%);width:1px;height:30px}.default-theme.splitpanes--vertical>.splitpanes__splitter:before,.default-theme .splitpanes--vertical>.splitpanes__splitter:before{margin-left:-2px}.default-theme.splitpanes--vertical>.splitpanes__splitter:after,.default-theme .splitpanes--vertical>.splitpanes__splitter:after{margin-left:1px}.default-theme.splitpanes--horizontal>.splitpanes__splitter,.default-theme .splitpanes--horizontal>.splitpanes__splitter{height:9px;border-top:1px solid #eee;margin-top:-1px}.default-theme.splitpanes--horizontal>.splitpanes__splitter:after,.default-theme .splitpanes--horizontal>.splitpanes__splitter:after,.default-theme.splitpanes--horizontal>.splitpanes__splitter:before,.default-theme .splitpanes--horizontal>.splitpanes__splitter:before{-webkit-transform:translateX(-50%);transform:translateX(-50%);width:30px;height:1px}.default-theme.splitpanes--horizontal>.splitpanes__splitter:before,.default-theme .splitpanes--horizontal>.splitpanes__splitter:before{margin-top:-2px}.default-theme.splitpanes--horizontal>.splitpanes__splitter:after,.default-theme .splitpanes--horizontal>.splitpanes__splitter:after{margin-top:1px}
-.splitpanes__pane {
+
+.searchBox {
+  background-color: #f2f2f2;
   justify-content: center;
-  align-items: center;
-  display: flex;
 }
-.splitpanes__splitter {
-  background-color: #ccc;
-  position: relative;
-}
-.splitpanes__splitter:before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  transition: 0.4s;
+.searchBox:nth-child(2) {
+  background-color: #bbb;
 }
 
 
-.splitpanes > .splitpanes__splitter:before {
-  left: -30px;
-  right: -30px;
-}
-.splitpanes> .splitpanes__splitter:before {
-  top: -30px;
-  bottom: -30px;
-}
-.splitpanes__splitter:hover:before {
-  background-color: rgba(255, 0, 0, 0.3);
-}
-/* splitpanes {
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  height:100%;
-  width: 100%;
-}
 
-pane {
-  font-family: Helvetica, Arial, sans-serif;
-  color: #fff;
-    height: 100vh;
-  width: 25vw;
-  font-size: 5em;
-  opacity: 0.6;
-} */
-.components-container {
-		position: relative;
-		height: 100vh;
-	}
-p {
-  font-size: 2em;
-  text-align: center;
-}
-  .dnd-grid-container {
-      border: 2px solid black;
-
-    }
-  .demo-box {
-        width: 100%;
-        height: 100%;
-    }
 </style>
