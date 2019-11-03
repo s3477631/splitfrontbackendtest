@@ -1,0 +1,2 @@
+class Webcode < ApplicationRecord
+end

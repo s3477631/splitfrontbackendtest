@@ -1,0 +1,32 @@
+<%= form_with(model: webcode, local: true) do |form| %>
+  <% if webcode.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(webcode.errors.count, "error") %> prohibited this webcode from being saved:</h2>
+
+      <ul>
+      <% webcode.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :bottom_l %>
+    <%= form.text_field :bottom_l %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bottom_m %>
+    <%= form.text_field :bottom_m %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bottom_r %>
+    <%= form.text_field :bottom_r %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

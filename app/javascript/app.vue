@@ -1,91 +1,95 @@
 <template>
   <div id="app">
-<splitpanes v-press="onPress" id="adjustfit" class="default-theme" horizontal :push-other-panes="false" @resize="verticalTopSize = $event[0];resizeTOPHIGH();" style="height: 100vh; width: 100vw; margin-top: -60px; display: flex;">
+<splitpanes v-press="onPress" ref='mainbackground' id="adjustfit" class="default-theme" horizontal :push-other-panes="false" @resize="resizeTOPHIGH();" style="height: 100vh; width: 100vw; margin-top: -60px; display: flex;">
   <pane ref="vertical_top">
-  <splitpanes :push-other-panes="false">
-     <pane ref='top_left' > 
-    <span style="display: flex; color: white; font-size: 6vw;">T.Left <span style="font-size: 4vw;">{{ topLeftpane}}%</span>{{Math.round(firstRow)}}</span>
+  <splitpanes :push-other-panes="false" @resize="resizeTOPWIDE();">
+     <pane ref='top_left'> 
+    <span  style="display: flex; color: white; font-size: 6vw;">T.Left</span> 
+    <span  v-show="changedTop" :key="changedTop" style="font-size: 4vw;">W:{{ ShowPositions.topLeftpane}}% H:{{Math.round(ShowPositions.firstRow)}}%</span>
   </pane>
-  <pane>
-    <span style="display: flex; color: white; font-size: 6vw;">Header <span style="font-size: 4vw;">{{ topMiddlepane}}%</span></span>
+  <pane ref="top_middle">
+    <span style="display: flex; color: white; font-size: 6vw;">Header </span>
+    <span  v-show="changedTop" :key="changedTop" style="font-size: 4vw;">W:{{ ShowPositions.topMiddlepane}}% H:{{Math.round(ShowPositions.firstRow)}}%</span>
   </pane>
-   <pane ref='top_right' >
-    <span style="display: flex; color: white; font-size: 6vw;">T.Right <span style="font-size: 4vw;">{{ topRightpane}}%</span></span>
+   <pane ref='top_right'>
+    <span style="display: flex; color: white; font-size: 6vw;">T.Right </span>
+     <span  v-show="changedTop" :key="changedTop"  style="font-size: 4vw;">W:{{ShowPositions.topRightpane}}% H:{{Math.round(ShowPositions.firstRow)}}%</span>
   </pane>
   </splitpanes>
   </pane>
   <pane ref="vertical_middle">
     <splitpanes @resize="middlePaneWideSize = $event[0]; resizeMIDDLEWIDE();" :push-other-panes="false">
       <pane ref="middle_left">
-           <span style="display: flex; color: white; font-size: 6vw;">Left <span style="font-size: 4vw;">{{ middleLeftpane}}%{{Math.round(secondRow)}}</span></span>
+           <span style="display: flex; color: white; font-size: 6vw;">Left</span>
+              <span style="font-size: 4vw;" v-show="changedTop" :key="changedTop" >W:{{ ShowPositions.middleLeftpane}}%H:{{Math.round(ShowPositions.secondRow)}}%</span>
       </pane>
-      <pane>
-          <span style="display: flex; color: white; font-size: 6vw;">middle <span style="font-size: 4vw;">{{middleMiddlepane}}%</span></span>
+      <pane ref="middle_middle">
+          <span style="display: flex; color: white; font-size: 6vw;">middle</span>
+             <span style="font-size: 4vw;" v-show="changedTop" :key="changedTop" >W:{{ ShowPositions.middleMiddlepane}}%H:{{Math.round(ShowPositions.secondRow)}}%</span>
       </pane>
       <pane ref="middle_right">
-       <span style="display: flex; color: white; font-size: 6vw;">Right <span style="font-size: 4vw;">{{ middleRightpane}}%</span></span>
+       <span style="display: flex; color: white; font-size: 6vw;">Right</span>
+           <span style="font-size: 4vw;" v-show="changedTop" :key="changedTop" >W:{{ ShowPositions.middleRightpane}}%H:{{Math.round(ShowPositions.secondRow)}}%</span>
       </pane>
     </splitpanes>
   </pane>
    <pane ref="vertical_bottom">
   <splitpanes @resize="bottomPaneWideSize = $event[0]; resizeBOTTOMWIDE();" :push-other-panes="false">
   <pane ref='bottom_left'>
-    <span style="display: flex; color: white; font-size: 6vw;"> B.Left <span style="font-size: 4vw;">{{ bottomLeftpane}}%{{Math.round(thirdRow)}}</span></span>
+    <span style="display: flex; color: white; font-size: 6vw;"> B.Left </span>
+      <span style="font-size: 4vw;" v-show="changedTop" :key="changedTop">W:{{ ShowPositions.bottomLeftpane}}%H:{{Math.round(ShowPositions.thirdRow)}}</span>
   </pane>
   <pane ref='bottom_middle'>
-    <span style="display: flex; color: white; font-size: 6vw;"> Footer <span style="font-size: 4vw;">{{ bottomMiddlepane}}%</span></span>
+    <span style="display: flex; color: white; font-size: 6vw;"> Footer </span>
+      <span style="font-size: 4vw;" v-show="changedTop" :key="changedTop">W:{{ ShowPositions.bottomMiddlepane}}%H:{{Math.round(ShowPositions.thirdRow)}}</span>
   </pane>
    <pane ref="bottom_right">
-    <span style="display: flex; color: white; font-size: 6vw;"> B.Right <span style="font-size: 4vw;">{{ bottomRightpane}}%</span></span>
+    <span style="display: flex; color: white; font-size: 6vw;"> B.Right</span>
+       <span style="font-size: 4vw;" v-show="changedTop" :key="changedTop">W:{{ ShowPositions.bottomRightpane}}%H:{{Math.round(ShowPositions.thirdRow)}}</span>
   </pane>
   </splitpanes>
   </pane>
 </splitpanes>
-
-<div v-if="showFeatureAdd" style="height: 30vh; width: 80vw; background-color: red; position: relative; z-index: 3; top: -100vh; left: 10vw; right: 10vw; border: 1px solid orange;"> 
-    <input type="text" autofocus style="width: 100%;" placeholder="Search for elements to add"/>
-    <ul class='searchBox' style="list-style: none;">
-      <li>Picture</li>
-       <li>Video</li>
-        <li>Blank space</li>
-         <li>Text</li>
-    </ul>
-    <button @click="showFeatureAdd = false" style="width: 100%; color: white; background-color: red;  position: absolute; bottom: 0;">CLOSE</button>
-  </div>
-
+<app-add-feature :showFeatureAdd="showFeatureAdd" :firstRow="ShowPositions" @update-close="update" @picture-add="addPictureUp"></app-add-feature>
+<add-picture-menu :showPictureAdd="showPictureAdd"></add-picture-menu>
   </div>
 </template>
 
 <script>
 import Vue from 'vue/dist/vue.js';
-
+import AddFeatureComponent from './components/add_feature_menu.vue'
 import { Splitpanes, Pane } from 'splitpanes'
-
+import AddPictureMenu from './components/add_pictures.vue'
 
 Vue.component('splitpanes', Splitpanes); 
 Vue.component('pane', Pane)
 
 export default {
+  name: "app",
   data: function () {
     return {
-      showFeatureAdd: false,
       paneWidth: 33.33,
+      showFeatureAdd: false,
+      showPictureAdd: false,
        panesNumber: 5,
       topPaneWidthSize: 100, 
       verticalTopSize: 100,
       middlePaneWideSize: 100,
-        firstRow: 0, 
-        secondRow: 0, 
-        thirdRow: 0,
-        topLeftpane: 0, 
-        topMiddlepane: 0,
-        topRightpane: 0,
-        middleLeftpane: 0,
-        middleMiddlepane: 0,
-        middleRightpane: 0,
-        bottomLeftpane: 0,
-        bottomMiddlepane: 0,
-        bottomRightpane: 0,
+      changedTop: false,
+      ShowPositions: {
+        firstRow: 33, 
+        secondRow: 33, 
+        thirdRow: 33,
+        topLeftpane: 33, 
+        topMiddlepane: 33,
+        topRightpane: 33,
+        middleLeftpane: 33,
+        middleMiddlepane: 33,
+        middleRightpane: 33,
+        bottomLeftpane: 33,
+        bottomMiddlepane: 33,
+        bottomRightpane: 33,
+      },
       slideOutput: '', 
       tapOutput: '',
       pressOutput: '',
@@ -165,22 +169,42 @@ export default {
                     return box.id !== 'settings'
                 })
             },
+         
             
         },
+
   methods: {
-    resizeTOPHIGH(){
-      this.firstRow = parseInt(this.$refs.vertical_top.style.height)
-      this.secondRow = parseInt(this.$refs.vertical_middle.style.height)
-      this.thirdRow = parseInt(this.$refs.vertical_bottom.style.height)
-    
+    update(ShownFeature){
+      this.showFeatureAdd=ShownFeature
+      console.log("sup")
     },
+    addPictureUp(ShownPicture){
+      this.showPictureAdd=ShownPicture
+      console.log('hey')
+    },
+
+    resizeTOPHIGH(){
+      this.ShowPositions.firstRow = parseInt(this.$refs.vertical_top.style.height)
+      this.ShowPositions.secondRow = parseInt(this.$refs.vertical_middle.style.height)
+      this.ShowPositions.thirdRow = parseInt(this.$refs.vertical_bottom.style.height)
+      this.changedTop = true
+      setTimeout(function(){
+       this.changedTop = false
+      }, 1500)
   
-   
-      resizeTOPWIDE(){
+    },
+   resizeTOPWIDE(){
        this.topLeftpane = parseInt(this.$refs.top_left.style.width)
        this.topMiddlepane = 100 - (parseInt(this.$refs.top_left.style.width) + parseInt(this.$refs.top_right.style.width))
        this.topRightpane = parseInt(this.$refs.top_right.style.width)
+       this.changedTop = true
+           setTimeout(function(){
+        this.changedTop = false
+      }, 1500)
+  
       },
+   
+     
        resizeMIDDLEWIDE(){
        this.middleLeftpane = parseInt(this.$refs.middle_left.style.width)
        this.middleMiddlepane = 100 - (parseInt(this.$refs.middle_left.style.width) + parseInt(this.$refs.middle_right.style.width))
@@ -233,14 +257,25 @@ export default {
       this.y = y
     }
   },
-watch: {    
-     layout: function(newvalue, oldvalue){
-       console.log(newvalue)
+watch: {
+  showFeatureAdd: function(newvalue, oldvalue){
+    if(newvalue == true){
+    
     }
   },
+    showPictureAdd: function(newvalue, oldvalue){
+   
+    if(newvalue == true){
+     var test =  this.$refs.mainbackground
+     test.$refs.container.style = "filter:opacity(0.7);filter:blur(10px);"
+    }
+  }
+},
   components: {
         Splitpanes,
-        Pane
+        Pane,
+        'app-add-feature':AddFeatureComponent, 
+        'add-picture-menu': AddPictureMenu,
 
   }
 }
@@ -249,13 +284,7 @@ watch: {
 
 <style scoped>
 
-.searchBox {
-  background-color: #f2f2f2;
-  justify-content: center;
-}
-.searchBox:nth-child(2) {
-  background-color: #bbb;
-}
+
 
 
 
