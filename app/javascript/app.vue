@@ -113,8 +113,18 @@ export default {
       var vm = this;
      this.showPictureAdd= false, 
       this.showFeatureAdd=false
+      
       reader.onload = (e) => {
+        var testType = e.target.result   
+          console.log(testType)
+      if (testType.includes('video')){
+        console.log(e.target)
+        console.log('IT WORKED')
+         this.selectedPane.innerHTML = '<video autoplay controls height= "100%" width="100%" src=' + e.target.result +  '> ' + ' </video>'
+      }
+      else{
          this.selectedPane.innerHTML = '<img ' + 'src= ' + e.target.result + ' height= "100%" width="100%"/>'
+      } 
       };
       reader.readAsDataURL(ImageAdd);
     },

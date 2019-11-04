@@ -26,7 +26,13 @@ export default {
        right: 10vw; 
 }
 textarea {
+    max-height: 30vh; 
+    max-width:80vw;
     height: 30vh; 
-    width:80vw;
+    width: 80vw;
+    color: white; 
+    font-size: 4vh; 
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background-color: skyblue; 
 }
 </style>
