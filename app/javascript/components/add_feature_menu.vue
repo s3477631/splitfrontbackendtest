@@ -2,8 +2,8 @@
 <div v-if="showFeatureAdd" class="ListContainer">   
     <ul>
       <li><button @click="showPositions()" @onTap="showPositions()">FINISH</button></li>
-      <li><button @click="openpictures()" @onTap="openpictures()"> PICTURE</button></li>
-       <li><button>VIDEO</button></li>
+      <li><button @click="openpictures()" @onTap="openpictures()"><i class="glyphicon glyphicon-picture"></i>PICTURE</button></li>
+       <li><input type="text" placeholder="insert video link" @input="updateVideoLink" style="color: black;" :value="VideoLink"></li>
         <li><button>BLANK SPACE</button></li>
          <li><button>TEXT</button></li>
     </ul>
@@ -20,12 +20,18 @@ export default {
             'type': Boolean
         }, 
             firstRow:{
-            }, 
-        
-    
+            },
     }, 
-
+    data(){
+        return{
+            VideoLink: ''
+        }
+    },
     methods:{
+        updateVideoLink(event){
+           console.log(event.target.value)
+
+        },
           closeFeatureAdd(){
         let ShownFeature = false
         this.$emit("update-close", ShownFeature);
@@ -112,6 +118,11 @@ li > button{
     height: 5vh;
     font-weight: bold;
     
+}
+
+li > input{ 
+    width: 100%; 
+    height: 5vh;
 }
 
 li:nth-child(odd)  > button{

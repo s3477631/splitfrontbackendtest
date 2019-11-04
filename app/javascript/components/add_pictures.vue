@@ -8,10 +8,6 @@
           <input type="file" @change="addedImage" ref="inputtedImage" id="realInput" value=""/>
           </span>
           </div>
-            <div id="videocontainer">
-            <video autoplay="true" id="videoElement">
-          </video>
-      </div>
   </div>
   </template>
 <script>
@@ -28,20 +24,6 @@ export default {
     
         let ImageAdd = event.target.files[0]
             this.$emit('inject-image', ImageAdd);
-        },
-        openCamera(){
-            var video = document.querySelector("#videoElement");
-
-if (navigator.mediaDevices.getUserMedia) {
-  navigator.mediaDevices.getUserMedia({ video: true })
-    .then(function (stream) {
-      video.srcObject = stream;
-    })
-    .catch(function (error) {
-      console.log("Something went wrong!");
-    });
-}
-            
         },
         openStorage(){
             var openrealbutton = document.getElementById('realInput');
@@ -94,7 +76,9 @@ span{
     top: -30%;
     right: 20%;
     left: 20%;
-    height: 100%; 
-    width: 80%; 
+    /* height: 100%; 
+    width: 80%;  */
+    height: 100vh;
+    width: 100vw;
 }
 </style>
