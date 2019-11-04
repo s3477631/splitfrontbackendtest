@@ -78,8 +78,10 @@ span{
 #videocontainer{
     position: relative;
     z-index: 7; 
-    top: -10vh;
-    height: 40vh; 
-    width: 80vw; 
+    top: -30%;
+    right: 20%;
+    left: 20%;
+    height: 100%; 
+    width: 80%; 
 }
 </style>

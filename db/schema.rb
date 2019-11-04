@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_03_210106) do
+ActiveRecord::Schema.define(version: 2019_11_04_011208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,15 @@ ActiveRecord::Schema.define(version: 2019_11_03_210106) do
     t.string "bottom_r"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "middle_l"
+    t.string "middle_m"
+    t.string "middle_r"
+    t.string "top_l"
+    t.string "top_m"
+    t.string "top_r"
+    t.string "firstRow"
+    t.string "secondRow"
+    t.string "thirdRow"
   end
 
 end

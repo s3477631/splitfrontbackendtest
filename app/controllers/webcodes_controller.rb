@@ -1,4 +1,5 @@
 class WebcodesController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :set_webcode, only: [:show, :edit, :update, :destroy]
 
   # GET /webcodes
@@ -24,16 +25,18 @@ class WebcodesController < ApplicationController
   # POST /webcodes
   # POST /webcodes.json
   def create
-    @webcode = Webcode.new(webcode_params)
+    @webcode = Webcode.new(webcode_params) 
 
     respond_to do |format|
       if @webcode.save
-        format.html { redirect_to @webcode, notice: 'Webcode was successfully created.' }
+        format.html { render :show }
         format.json { render :show, status: :created, location: @webcode }
+   
       else
         format.html { render :new }
         format.json { render json: @webcode.errors, status: :unprocessable_entity }
       end
+     
     end
   end
 
@@ -69,6 +72,6 @@ class WebcodesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def webcode_params
-      params.require(:webcode).permit(:bottom_l, :bottom_m, :bottom_r)
+      params.require(:webcode).permit(:bottom_l, :bottom_m, :bottom_r, :middle_l, :middle_m, :middle_r, :top_l, :top_m, :top_r, :firstRow, :secondRow, :thirdRow)
     end
 end

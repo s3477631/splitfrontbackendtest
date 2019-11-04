@@ -18,7 +18,7 @@
   </splitpanes>
   </pane>
   <pane ref="vertical_middle">
-    <splitpanes @resize="middlePaneWideSize = $event[0]; resizeMIDDLEWIDE();" :push-other-panes="false">
+    <splitpanes @resize="resizeMIDDLEWIDE();" :push-other-panes="false">
       <pane ref="middle_left">
            <span style="display: flex; color: white; font-size: 6vw;">Left</span>
               <span style="font-size: 4vw;" v-show="changedTop" :key="changedTop" >W:{{ ShowPositions.middleLeftpane}}%H:{{Math.round(ShowPositions.secondRow)}}%</span>
@@ -34,7 +34,7 @@
     </splitpanes>
   </pane>
    <pane ref="vertical_bottom">
-  <splitpanes @resize="bottomPaneWideSize = $event[0]; resizeBOTTOMWIDE();" :push-other-panes="false">
+  <splitpanes @resize="resizeBOTTOMWIDE();" :push-other-panes="false">
   <pane ref='bottom_left'>
     <span style="display: flex; color: white; font-size: 6vw;"> B.Left </span>
       <span style="font-size: 4vw;" v-show="changedTop" :key="changedTop">W:{{ ShowPositions.bottomLeftpane}}%H:{{Math.round(ShowPositions.thirdRow)}}</span>
@@ -50,7 +50,7 @@
   </splitpanes>
   </pane>
 </splitpanes>
-<app-add-feature :showFeatureAdd="showFeatureAdd" :firstRow="ShowPositions" @update-close="update" @picture-add="addPictureUp"></app-add-feature>
+<app-add-feature :showFeatureAdd="showFeatureAdd" :firstRow="ShowPositions" @update-close="update" @picture-add="addPictureUp" @close-vuejs="destroyVuejs"></app-add-feature>
 <add-picture-menu :showPictureAdd="showPictureAdd"></add-picture-menu>
   </div>
 </template>
@@ -68,12 +68,9 @@ export default {
   name: "app",
   data: function () {
     return {
-      paneWidth: 33.33,
       showFeatureAdd: false,
+      destroyVue: true,
       showPictureAdd: false,
-       panesNumber: 5,
-      topPaneWidthSize: 100, 
-      verticalTopSize: 100,
       middlePaneWideSize: 100,
       changedTop: false,
       ShowPositions: {
@@ -90,97 +87,18 @@ export default {
         bottomMiddlepane: 33,
         bottomRightpane: 33,
       },
-      slideOutput: '', 
-      tapOutput: '',
-      pressOutput: '',
-     cellSize: {
-                    w: 100,
-                    h: 100
-                },
-                maxColumnCount: 12,
-                maxRowCount: 12,
-                bubbleUp: false,
-                margin: 5,
-                boxCount: 4,
-                autoAddLayoutForNewBox: false,
-                layout: [
-                    {
-                        id: 'settings',
-                        hidden: false,
-                        pinned: true,
-                        position: {
-                            x: 0,
-                            y: 0,
-                            w: 12,
-                            h: 1
-                        }
-                    },
-                    {
-                        id: 1,
-                        hidden: false,
-                        pinned: false,
-                        position: {
-                            x: 4,
-                            y: 0,
-                            w: 2,
-                            h: 1
-                        }
-                    },
-                    {
-                        id: 2,
-                        hidden: false,
-                        pinned: false,
-                        position: {
-                            x: 6,
-                            y: 0,
-                            w: 1,
-                            h: 2
-                        }
-                    },
-                    {
-                        id: 3,
-                        hidden: false,
-                        pinned: false,
-                        position: {
-                            x: 4,
-                            y: 1,
-                            w: 2,
-                            h: 3
-                        }
-                    },
-                    {
-                        id: 4,
-                        hidden: false,
-                        pinned: false,
-                        position: {
-                            x: 6,
-                            y: 2,
-                            w: 3,
-                            h: 2
-                        }
-                    }
-                ],
     }
   },
-
-    computed: {
-            layoutWithoutSettings () {
-                return this.layout.filter((box) => {
-                    return box.id !== 'settings'
-                })
-            },
-         
-            
-        },
-
   methods: {
+    destroyVuejs(ShowVue){
+      this.destroyVue=ShowVue
+  console.log(ShowVue)
+    },
     update(ShownFeature){
       this.showFeatureAdd=ShownFeature
-      console.log("sup")
     },
     addPictureUp(ShownPicture){
       this.showPictureAdd=ShownPicture
-      console.log('hey')
     },
 
     resizeTOPHIGH(){
@@ -194,9 +112,9 @@ export default {
   
     },
    resizeTOPWIDE(){
-       this.topLeftpane = parseInt(this.$refs.top_left.style.width)
-       this.topMiddlepane = 100 - (parseInt(this.$refs.top_left.style.width) + parseInt(this.$refs.top_right.style.width))
-       this.topRightpane = parseInt(this.$refs.top_right.style.width)
+       this.ShowPositions.topLeftpane = parseInt(this.$refs.top_left.style.width)
+       this.ShowPositions.topMiddlepane = 100 - (parseInt(this.$refs.top_left.style.width) + parseInt(this.$refs.top_right.style.width))
+       this.ShowPositions.topRightpane = parseInt(this.$refs.top_right.style.width)
        this.changedTop = true
            setTimeout(function(){
         this.changedTop = false
@@ -204,16 +122,15 @@ export default {
   
       },
    
-     
        resizeMIDDLEWIDE(){
-       this.middleLeftpane = parseInt(this.$refs.middle_left.style.width)
-       this.middleMiddlepane = 100 - (parseInt(this.$refs.middle_left.style.width) + parseInt(this.$refs.middle_right.style.width))
-       this.middleRightpane = parseInt(this.$refs.middle_right.style.width)
+       this.ShowPositions.middleLeftpane = parseInt(this.$refs.middle_left.style.width)
+       this.ShowPositions.middleMiddlepane = 100 - (parseInt(this.$refs.middle_left.style.width) + parseInt(this.$refs.middle_right.style.width))
+       this.ShowPositions.middleRightpane = parseInt(this.$refs.middle_right.style.width)
       },
         resizeBOTTOMWIDE(){
-       this.bottomLeftpane = parseInt(this.$refs.bottom_left.style.width)
-       this.bottomMiddlepane = 100 - (parseInt(this.$refs.bottom_left.style.width) + parseInt(this.$refs.bottom_right.style.width))
-       this.bottomRightpane = parseInt(this.$refs.bottom_right.style.width)
+       this.ShowPositions.bottomLeftpane = parseInt(this.$refs.bottom_left.style.width)
+       this.ShowPositions.bottomMiddlepane = 100 - (parseInt(this.$refs.bottom_left.style.width) + parseInt(this.$refs.bottom_right.style.width))
+       this.ShowPositions.bottomRightpane = parseInt(this.$refs.bottom_right.style.width)
       },
        onPan(event) {
           this.slideOutput = event;
@@ -227,35 +144,13 @@ export default {
    
       },
       onPress(event){
-        // this.pressOutput = event
-       
          event.preventDefault()
          console.log(event)
         if(event.target.className == 'splitpanes__pane'){
            this.showFeatureAdd = true
          event.target.innerHTML = '<img src="https://bit.ly/34ebo0M" height= "100%" width="100%"></img>'
-      // do something cool
-     
-          // var testbro = '<splitpanes :push-other-panes="false"><pane><span style="display: flex; color: white; font-size: 3em;">Left</span></pane><pane><span style="display: flex; color: white; font-size: 3em;">Center</span></pane><pane><span style="display: flex; color: white; font-size: 3em;">Right</span></pane></splitpanes>'
-          // var testboi = '<splitpanes :push-other-panes="false"><pane><span style="display: flex; color: white; font-size: 3em;">Left</span></pane><pane><span style="display: flex; color: white; font-size: 3em;">Center</span></pane><pane><span style="display: flex; color: white; font-size: 3em;">Right</span></pane></splitpanes>'
-          //   event.target.insertAdjacentElement("afterbegin", `
         }
-    
-      },
-        onLayoutUpdate:  function(evt) {
-                this.layout = evt.layout
-        },
-    onResize: function (x, y, width, height) {
-
-      this.x = x
-      this.y = y
-      this.width = width
-      this.height = height
-    },
-    onDrag: function (x, y) {
-      this.x = x
-      this.y = y
-    }
+      }
   },
 watch: {
   showFeatureAdd: function(newvalue, oldvalue){

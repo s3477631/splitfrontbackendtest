@@ -39,17 +39,38 @@ export default {
             method: 'post', 
             url: '/webcodes',
             data: {
-                bottom_l: 33,
-                bottom_m:33,
-                bottom_r:33
-            }
-        })
-  
+                bottom_l: positions.bottomLeftpane,
+                bottom_m: positions.bottomMiddlepane, 
+                bottom_r: positions.bottomRightpane, 
+                middle_l: positions.middleLeftpane, 
+                middle_m: positions.middleMiddlepane,
+                middle_r: positions.middleRightpane,
+                top_l: positions.topLeftpane,
+                top_m: positions.topMiddlepane,
+                top_r: positions.topRightpane,
+                firstRow: positions.firstRow, 
+                secondRow: positions.secondRow, 
+                thirdRow: positions.thirdRow
+
+            },
+             headers: {'Content-Type': 'application/json'}
+                 }).then(function (response) {
+                })
+            .catch(function (error) {
+               console.log(error.response);
+                });
+                 this.redirectPage()
+
+        },
+        redirectPage(){
+                let ShowVue = false
+            this.$emit("close-vuejs", ShowVue);
+            axios.get('/webcodes/3')
         },
         openpictures(){
              let ShownPicture = true 
-            this.$emit("picture-add", ShownPicture);
-          this.closeFeatureAdd()
+               this.$emit("picture-add", ShownPicture);
+             this.closeFeatureAdd()
             
         },
 },
