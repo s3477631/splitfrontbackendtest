@@ -1,7 +1,7 @@
 class WebcodesController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_webcode, only: [:show, :edit, :update, :destroy]
-
+    require 'webcodes_helper'
   # GET /webcodes
   # GET /webcodes.json
   def index
@@ -31,7 +31,7 @@ class WebcodesController < ApplicationController
       if @webcode.save
         format.html { redirect_to @webcode}
         format.json { render :show, status: :created, location: @webcode}
-   
+        @testmessage = WebcodesHelper.createpage(@webcode)
       else
         format.html { render :new }
         format.json { render json: @webcode.errors, status: :unprocessable_entity }

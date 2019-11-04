@@ -1,11 +1,12 @@
 <template>
 <div v-if="showFeatureAdd" class="ListContainer">   
-    <ul>
-      <li><button @click="showPositions()" @onTap="showPositions()">FINISH</button></li>
-      <li><button @click="openpictures()" @onTap="openpictures()"><i class="glyphicon glyphicon-picture"></i>PICTURE</button></li>
-       <li><input type="text" placeholder="insert video link" @input="updateVideoLink" style="color: black;" :value="VideoLink"></li>
-        <li><button>BLANK SPACE</button></li>
-         <li><button>TEXT</button></li>
+    <ul class="grid-container">
+      <li class="grid-item"><button @click="showPositions()" @onTap="showPositions()">FINISH<i class="glyphicon glyphicon-flag"></i></button></li>
+      <li class="grid-item"><button @click="openpictures()" @onTap="openpictures()"><i class="glyphicon glyphicon-picture"></i>|<i class="glyphicon glyphicon-camera"></i><i></i></button></li>
+       <li class="grid-item"><button>BLANK SPACE <i class="glyphicon glyphicon-th-large"></i></button></li>
+       <li class="grid-item"><button @click="insertTable()">Table <i class="glyphicon glyphicon-calendar"></i></button></li>
+        <li class="grid-item"><button@click="insertText()">Text<i class="glyphicon glyphicon-text-size"></i></button></li>
+            <li class="grid-item"><input type="text" placeholder="insert video link" @input="updateVideoLink" style="color: black;" :value="VideoLink"><button @click="insertVideo">Video<i class="glyphicon glyphicon-film"></i></button></li>
     </ul>
     <button class='closeBTN' @click="closeFeatureAdd()">CLOSE</button>
   </div>
@@ -28,6 +29,21 @@ export default {
         }
     },
     methods:{
+        insertText(){
+        let ShownText = true 
+        this.$emit("text-add", ShownText);
+        this.closeFeatureAdd()
+        },
+        insertTable(){
+        let ShownTable = true 
+        this.$emit("table-add", ShownTable);
+        this.closeFeatureAdd()
+        },
+        insertVideo(){
+         let ShownFeature = false
+        this.$emit("video-add", ShownFeature);
+        this.closeFeatureAdd()
+        },
         updateVideoLink(event){
            console.log(event.target.value)
 
@@ -78,15 +94,33 @@ export default {
              let ShownPicture = true 
             this.$emit("picture-add", ShownPicture);
           this.closeFeatureAdd()
-            
         },
 },
 }
 
   </script>
   <style scoped>
+
+
+.grid-container{
+    display: grid; 
+    grid-template-columns: 26.67vw 26.67vw 26.67vw;
+    grid-template-rows: 16vh 16vh;
+}
+
+
+  i{
+   width: 10vw;
+   font-size: 4vh;
+  }
+
+  i > button {
+         display: inline-flex; 
+      align-items: center;
+     justify-self: space-between;
+  }
 .ListContainer{
-    height: 30vh; 
+    height: 40vh; 
     width: 80vw; 
     background-color: red;
      position: relative; 
@@ -94,7 +128,6 @@ export default {
      top: -100vh;
       left: 10vw;
        right: 10vw; 
-       border: 1px solid orange;
 }
 input {
     width: 100%;
@@ -103,26 +136,20 @@ ul{
     list-style: none;
 }
 li{
-    height: 15%;
     color: white;
     width: 100%;
-    background: green; 
-    border: 1px solid black;
-     border-radius: 3px;
 }
 li > button{
-       background-color: rgb(255, 0, 64); 
+       background-color: rgb(255, 115, 0); 
     height: 100%; 
     width: 100%;
     color: white; 
-    height: 5vh;
     font-weight: bold;
     
 }
 
 li > input{ 
     width: 100%; 
-    height: 5vh;
 }
 
 li:nth-child(odd)  > button{
@@ -130,17 +157,16 @@ li:nth-child(odd)  > button{
     height: 100%; 
     width: 100%;
     color: white; 
-    height: 5vh;
     font-weight: bold;
 }
 
 .closeBTN{
     width: 100%;
     color: white;
-    background-color: red;  
+    background-color: green;  
     position: absolute; 
     bottom: 0;
-    height: 5vh;
+    height: 8vh;
 }
 
   </style>

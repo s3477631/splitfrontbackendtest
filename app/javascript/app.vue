@@ -50,16 +50,19 @@
   </splitpanes>
   </pane>
 </splitpanes>
-<app-add-feature :showFeatureAdd="showFeatureAdd"  :firstRow="ShowPositions" @update-close="update" @picture-add="addPictureUp"></app-add-feature>
+<app-add-feature :showFeatureAdd="showFeatureAdd" @table-add="addTable" @video-add="addVideo" @text-add="addText"  :firstRow="ShowPositions" @update-close="update" @picture-add="addPictureUp"></app-add-feature>
 <add-picture-menu :showPictureAdd="showPictureAdd" @inject-image="addImage"></add-picture-menu>
+<add-text-menu :showTextMenu="showTextMenu"></add-text-menu>
   </div>
 </template>
+
 
 <script>
 import Vue from 'vue/dist/vue.js';
 import AddFeatureComponent from './components/add_feature_menu.vue'
 import { Splitpanes, Pane } from 'splitpanes'
 import AddPictureMenu from './components/add_pictures.vue'
+import AddText from './components/add_text.vue'
 
 Vue.component('splitpanes', Splitpanes); 
 Vue.component('pane', Pane)
@@ -68,6 +71,7 @@ export default {
   name: "app",
   data: function () {
     return {
+      showTextMenu: false,
       inputtedImage: '',
       selectedPane: '',
       imageAdded: null,
@@ -93,6 +97,16 @@ export default {
     }
   },
   methods: {
+    addText(AddTexte){
+      this.showTextMenu=AddTexte
+      this.selectedPane.innerHTML = '<div style="width: 100%; height: 100%; background-color: lightskyblue; color: white; font-size: 6vh;">' + 'fuckkkkdfs dfsflsdkjflksdj ' + '</div>'
+    },
+    addVideo(VideoAdd){
+    this.selectedPane.innerHTML = '<iframe style="width: 100%; height: 100%;" src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'
+    },
+    addTable(TableAdd){
+      this.selectedPane.innerHTML = "<table style='width: 100%;'> <thead><tr style='background-color: orange; color: white; font-size: 3vh;'><th>Product_Name</th><th>Product_description</th><th>Product_price</th><th>Product_Qty</th></tr></thead><tbody><tr style='font-size:2vh; background-color: blue; color: white;'><td>Chocolate</td><td>Delicious stuff you eat</td><td>$9.50</td><td>10</td></tr></tbody> </table>"
+    },
     addImage(ImageAdd){
       var image = new Image();
       var reader = new FileReader();
@@ -103,11 +117,6 @@ export default {
          this.selectedPane.innerHTML = '<img ' + 'src= ' + e.target.result + ' height= "100%" width="100%"/>'
       };
       reader.readAsDataURL(ImageAdd);
-      // this.imageAdded=ImageAdd
-      // console.log(ImageAdd)
-   
-      
-
     },
     destroyVuejs(ShowVue){
       this.destroyVue=ShowVue
@@ -177,7 +186,13 @@ export default {
 watch: {
   showFeatureAdd: function(newvalue, oldvalue){
     if(newvalue == true){
-    
+        var test =  this.$refs.mainbackground
+     test.$refs.container.style = "filter:opacity(0.7);filter:blur(10px);"
+    }
+     else if (newvalue == false){
+    console.log('closing blur')
+       var test =  this.$refs.mainbackground
+     test.$refs.container.style = "filter:opacity(1);filter:blur(0px);"
     }
   },
     showPictureAdd: function(newvalue, oldvalue){
@@ -192,12 +207,14 @@ watch: {
      test.$refs.container.style = "filter:opacity(1);filter:blur(0px);"
     }
   }
+  
 },
   components: {
         Splitpanes,
         Pane,
         'app-add-feature':AddFeatureComponent, 
         'add-picture-menu': AddPictureMenu,
+        'add-text-menu': AddText
 
   }
 }
