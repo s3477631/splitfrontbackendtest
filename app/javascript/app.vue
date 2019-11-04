@@ -1,57 +1,57 @@
 <template>
   <div id="app">
-<splitpanes v-press="onPress" ref='mainbackground' id="adjustfit" class="default-theme" horizontal :push-other-panes="false" @resize="resizeTOPHIGH();" style="height: 100vh; width: 100vw; margin-top: -60px; display: flex;">
+<splitpanes v-press="onPress" ref='mainbackground' id="adjustfit" class="default-theme" horizontal :push-other-panes="false" @resize="resizeTOPHIGH();">
   <pane ref="vertical_top">
   <splitpanes :push-other-panes="false" @resize="resizeTOPWIDE();">
      <pane ref='top_left'> 
-    <span  style="display: flex; color: white; font-size: 6vw;">T.Left</span> 
-    <span  v-show="changedTop" :key="changedTop" style="font-size: 4vw;">W:{{ ShowPositions.topLeftpane}}% H:{{Math.round(ShowPositions.firstRow)}}%</span>
+    <span class="panelLabels">T.Left</span> 
+    <span  v-show="changedTop" :key="changedTop" class="valueOuput">W:{{ ShowPositions.topLeftpane}}% H:{{Math.round(ShowPositions.firstRow)}}%</span>
   </pane>
   <pane ref="top_middle">
-    <span style="display: flex; color: white; font-size: 6vw;">Header </span>
-    <span  v-show="changedTop" :key="changedTop" style="font-size: 4vw;">W:{{ ShowPositions.topMiddlepane}}% H:{{Math.round(ShowPositions.firstRow)}}%</span>
+    <span class="panelLabels">Header </span>
+    <span  v-show="changedTop" :key="changedTop" class="valueOuput">W:{{ ShowPositions.topMiddlepane}}% H:{{Math.round(ShowPositions.firstRow)}}%</span>
   </pane>
    <pane ref='top_right'>
-    <span style="display: flex; color: white; font-size: 6vw;">T.Right </span>
-     <span  v-show="changedTop" :key="changedTop"  style="font-size: 4vw;">W:{{ShowPositions.topRightpane}}% H:{{Math.round(ShowPositions.firstRow)}}%</span>
+    <span class="panelLabels">T.Right </span>
+     <span  v-show="changedTop" :key="changedTop" class="valueOuput">W:{{ShowPositions.topRightpane}}% H:{{Math.round(ShowPositions.firstRow)}}%</span>
   </pane>
   </splitpanes>
   </pane>
   <pane ref="vertical_middle">
     <splitpanes @resize="resizeMIDDLEWIDE();" :push-other-panes="false">
       <pane ref="middle_left">
-           <span style="display: flex; color: white; font-size: 6vw;">Left</span>
-              <span style="font-size: 4vw;" v-show="changedTop" :key="changedTop" >W:{{ ShowPositions.middleLeftpane}}%H:{{Math.round(ShowPositions.secondRow)}}%</span>
+           <span class="panelLabels">Left</span>
+              <span class="valueOuput" v-show="changedTop" :key="changedTop" >W:{{ ShowPositions.middleLeftpane}}%H:{{Math.round(ShowPositions.secondRow)}}%</span>
       </pane>
       <pane ref="middle_middle">
-          <span style="display: flex; color: white; font-size: 6vw;">middle</span>
-             <span style="font-size: 4vw;" v-show="changedTop" :key="changedTop" >W:{{ ShowPositions.middleMiddlepane}}%H:{{Math.round(ShowPositions.secondRow)}}%</span>
+          <span class="panelLabels">middle</span>
+             <span class="valueOuput" v-show="changedTop" :key="changedTop" >W:{{ ShowPositions.middleMiddlepane}}%H:{{Math.round(ShowPositions.secondRow)}}%</span>
       </pane>
       <pane ref="middle_right">
-       <span style="display: flex; color: white; font-size: 6vw;">Right</span>
-           <span style="font-size: 4vw;" v-show="changedTop" :key="changedTop" >W:{{ ShowPositions.middleRightpane}}%H:{{Math.round(ShowPositions.secondRow)}}%</span>
+       <span class="panelLabels">Right</span>
+           <span class="valueOuput" v-show="changedTop" :key="changedTop" >W:{{ ShowPositions.middleRightpane}}%H:{{Math.round(ShowPositions.secondRow)}}%</span>
       </pane>
     </splitpanes>
   </pane>
    <pane ref="vertical_bottom">
   <splitpanes @resize="resizeBOTTOMWIDE();" :push-other-panes="false">
   <pane ref='bottom_left'>
-    <span style="display: flex; color: white; font-size: 6vw;"> B.Left </span>
-      <span style="font-size: 4vw;" v-show="changedTop" :key="changedTop">W:{{ ShowPositions.bottomLeftpane}}%H:{{Math.round(ShowPositions.thirdRow)}}</span>
+    <span class="panelLabels"> B.Left </span>
+      <span class="valueOuput" v-show="changedTop" :key="changedTop">W:{{ ShowPositions.bottomLeftpane}}%H:{{Math.round(ShowPositions.thirdRow)}}</span>
   </pane>
   <pane ref='bottom_middle'>
-    <span style="display: flex; color: white; font-size: 6vw;"> Footer </span>
-      <span style="font-size: 4vw;" v-show="changedTop" :key="changedTop">W:{{ ShowPositions.bottomMiddlepane}}%H:{{Math.round(ShowPositions.thirdRow)}}</span>
+    <span class="panelLabels"> Footer </span>
+      <span class="valueOuput" v-show="changedTop" :key="changedTop">W:{{ ShowPositions.bottomMiddlepane}}%H:{{Math.round(ShowPositions.thirdRow)}}</span>
   </pane>
    <pane ref="bottom_right">
-    <span style="display: flex; color: white; font-size: 6vw;"> B.Right</span>
-       <span style="font-size: 4vw;" v-show="changedTop" :key="changedTop">W:{{ ShowPositions.bottomRightpane}}%H:{{Math.round(ShowPositions.thirdRow)}}</span>
+    <span class="panelLabels"> B.Right</span>
+       <span class="valueOuput" v-show="changedTop" :key="changedTop">W:{{ ShowPositions.bottomRightpane}}%H:{{Math.round(ShowPositions.thirdRow)}}</span>
   </pane>
   </splitpanes>
   </pane>
 </splitpanes>
-<app-add-feature :showFeatureAdd="showFeatureAdd" :firstRow="ShowPositions" @update-close="update" @picture-add="addPictureUp" @close-vuejs="destroyVuejs"></app-add-feature>
-<add-picture-menu :showPictureAdd="showPictureAdd"></add-picture-menu>
+<app-add-feature :showFeatureAdd="showFeatureAdd"  :firstRow="ShowPositions" @update-close="update" @picture-add="addPictureUp"></app-add-feature>
+<add-picture-menu :showPictureAdd="showPictureAdd" @inject-image="addImage"></add-picture-menu>
   </div>
 </template>
 
@@ -68,6 +68,9 @@ export default {
   name: "app",
   data: function () {
     return {
+      inputtedImage: '',
+      selectedPane: '',
+      imageAdded: null,
       showFeatureAdd: false,
       destroyVue: true,
       showPictureAdd: false,
@@ -90,6 +93,22 @@ export default {
     }
   },
   methods: {
+    addImage(ImageAdd){
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+     this.showPictureAdd= false, 
+      this.showFeatureAdd=false
+      reader.onload = (e) => {
+         this.selectedPane.innerHTML = '<img ' + 'src= ' + e.target.result + ' height= "100%" width="100%"/>'
+      };
+      reader.readAsDataURL(ImageAdd);
+      // this.imageAdded=ImageAdd
+      // console.log(ImageAdd)
+   
+      
+
+    },
     destroyVuejs(ShowVue){
       this.destroyVue=ShowVue
   console.log(ShowVue)
@@ -147,8 +166,11 @@ export default {
          event.preventDefault()
          console.log(event)
         if(event.target.className == 'splitpanes__pane'){
+          this.selectedPane = event.target
+          var test = this.selectedPane
+          console.log(test)
            this.showFeatureAdd = true
-         event.target.innerHTML = '<img src="https://bit.ly/34ebo0M" height= "100%" width="100%"></img>'
+        //  event.target.innerHTML = '<img src="https://bit.ly/34ebo0M" height= "100%" width="100%"></img>'
         }
       }
   },
@@ -164,6 +186,11 @@ watch: {
      var test =  this.$refs.mainbackground
      test.$refs.container.style = "filter:opacity(0.7);filter:blur(10px);"
     }
+    else if (newvalue == false){
+    console.log('closing blur')
+       var test =  this.$refs.mainbackground
+     test.$refs.container.style = "filter:opacity(1);filter:blur(0px);"
+    }
   }
 },
   components: {
@@ -178,8 +205,22 @@ watch: {
 </script>
 
 <style scoped>
-
-
+.valueOuput{
+  font-size: 4vw;
+}
+.panelLabels{
+  display: flex;
+  color: white;
+  font-size: 6vw;
+}
+#adjustfit{
+  height: 100vh;
+  width: 100vw;
+  height: 100vh;
+  width: 100vw; 
+  margin-top: -60px;
+  display: flex;
+}
 
 
 

@@ -55,6 +55,7 @@ export default {
             },
              headers: {'Content-Type': 'application/json'}
                  }).then(function (response) {
+                    window.location.href="/webcodes"
                 })
             .catch(function (error) {
                console.log(error.response);
@@ -65,12 +66,12 @@ export default {
         redirectPage(){
                 let ShowVue = false
             this.$emit("close-vuejs", ShowVue);
-            axios.get('/webcodes/3')
+    
         },
         openpictures(){
              let ShownPicture = true 
-               this.$emit("picture-add", ShownPicture);
-             this.closeFeatureAdd()
+            this.$emit("picture-add", ShownPicture);
+          this.closeFeatureAdd()
             
         },
 },

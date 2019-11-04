@@ -29,8 +29,8 @@ class WebcodesController < ApplicationController
 
     respond_to do |format|
       if @webcode.save
-        format.html { render :show }
-        format.json { render :show, status: :created, location: @webcode }
+        format.html { redirect_to @webcode}
+        format.json { render :show, status: :created, location: @webcode}
    
       else
         format.html { render :new }

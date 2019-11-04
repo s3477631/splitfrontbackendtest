@@ -4,10 +4,12 @@
       <span>Camera <i class="glyphicon glyphicon-camera"></i></span>
       </div>
       <div @click="openStorage()" class="FromStorage">
-          <span>Storage <i class="glyphicon glyphicon-folder-open"></i></span>
+          <span>Storage <i class="glyphicon glyphicon-folder-open"></i>
+          <input type="file" @change="addedImage" ref="inputtedImage" id="realInput" value=""/>
+          </span>
           </div>
             <div id="videocontainer">
-      <video autoplay="true" id="videoElement">
+            <video autoplay="true" id="videoElement">
           </video>
       </div>
   </div>
@@ -19,9 +21,14 @@ export default {
     props:{
         showPictureAdd:{
             'type': Boolean
-        }
+        }, 
     },
     methods: {
+        addedImage(event){
+    
+        let ImageAdd = event.target.files[0]
+            this.$emit('inject-image', ImageAdd);
+        },
         openCamera(){
             var video = document.querySelector("#videoElement");
 
@@ -30,19 +37,27 @@ if (navigator.mediaDevices.getUserMedia) {
     .then(function (stream) {
       video.srcObject = stream;
     })
-    .catch(function (err0r) {
+    .catch(function (error) {
       console.log("Something went wrong!");
     });
 }
             
         },
         openStorage(){
-            console.log('open storage')
+            var openrealbutton = document.getElementById('realInput');
+            openrealbutton.click();
         }
     }
 }
 </script>
 <style scoped>
+.FromStorage input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 10vh;
+  visibility: hidden;
+}
 i{
     height: 10vh;
     width:10vw;
@@ -57,8 +72,6 @@ i{
     right: 10vw; 
      box-shadow: 5px 5px 5px 35px #868686;
     text-align: center;
-   
-  
     }
 .FromCamera{
     height: 50%;

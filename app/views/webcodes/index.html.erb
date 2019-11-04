@@ -5,9 +5,15 @@
 <table>
   <thead>
     <tr>
-      <th>Bottom l</th>
-      <th>Bottom m</th>
-      <th>Bottom r</th>
+      <th>B.Left</th>
+      <th>B.Middle</th>
+      <th>B.Right</th>
+      <th>M.Left</th>
+      <th>M.Middle</th>
+      <th>M.Right</th>
+      <th>T.Left</th>
+      <th>T.Middle</th>
+      <th>T.Right</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,6 +24,12 @@
         <td><%= webcode.bottom_l %></td>
         <td><%= webcode.bottom_m %></td>
         <td><%= webcode.bottom_r %></td>
+        <td><%= webcode.middle_l %></td>
+        <td><%= webcode.middle_m %></td>
+        <td><%= webcode.middle_r %></td>
+        <td><%= webcode.top_l %></td>
+        <td><%= webcode.top_m %></td>
+        <td><%= webcode.top_r %></td>
         <td><%= link_to 'Show', webcode %></td>
         <td><%= link_to 'Edit', edit_webcode_path(webcode) %></td>
         <td><%= link_to 'Destroy', webcode, method: :delete, data: { confirm: 'Are you sure?' } %></td>

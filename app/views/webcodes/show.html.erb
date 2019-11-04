@@ -1,18 +1,37 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Bottom l:</strong>
+  <strong>Bottom Left:</strong>
   <%= @webcode.bottom_l %>
 </p>
 
 <p>
-  <strong>Bottom m:</strong>
+  <strong>Bottom Middle:</strong>
   <%= @webcode.bottom_m %>
 </p>
 
 <p>
-  <strong>Bottom r:</strong>
+  <strong>Bottom Right:</strong>
   <%= @webcode.bottom_r %>
+</p>
+<p>
+    <strong>Middle Left:</strong>
+    <%= @webcode.middle_l %>
+  </p>
+  <strong>Middle Middle:</strong>
+  <%= @webcode.middle_m %>
+</p>
+<strong>Middle Right:</strong>
+<%= @webcode.middle_r %>
+</p>
+<strong>Top Left:</strong>
+<%= @webcode.top_l %>
+</p>
+<strong>Top Middle:</strong>
+<%= @webcode.top_m %>
+</p>
+<strong>Top Right:</strong>
+<%= @webcode.top_r %>
 </p>
 
 <%= link_to 'Edit', edit_webcode_path(@webcode) %> |
