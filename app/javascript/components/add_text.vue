@@ -1,6 +1,6 @@
 <template>
 <div v-if="showTextMenu" class="ListContainer"> 
-    <textarea></textarea>
+    <textarea @change="update" :value="inputText"></textarea>
   </div>
 </template>
 <script>
@@ -12,6 +12,14 @@ export default {
             'type': Boolean
         }, 
     },
+      data: function () {
+        return{
+            inputText: ''
+        }
+        methods: {
+            update(value)
+        }
+    }
 }
 </script>
 <style scoped>

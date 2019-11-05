@@ -16,7 +16,7 @@
 // const imagePath = (name) => images(name, true)
 
 import Hammer from 'hammerjs';
-// optionally import default styles
+
 import 'splitpanes/dist/splitpanes.css';
 import Vue from 'vue/dist/vue.js';
 import App from '../app.vue';
@@ -26,13 +26,15 @@ import App from '../app.vue';
 
 
 Vue.component('app', App)
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', (e) => {
    
+    // if(e.srcElement.URL == 'http:/localhost:3000/webcodes'){
+    //     console.log('fuck a donkey')
+    //    }
   const app = new Vue({
     el: '[data-behavior="vue"]',
   })
-
-  console.log(app)
+ console.log(app)
 })
 
 Vue.directive("pan", {

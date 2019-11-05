@@ -5,13 +5,14 @@
       <li class="grid-item"><button @click="openpictures()" @onTap="openpictures()"><i class="glyphicon glyphicon-picture"></i>|<i class="glyphicon glyphicon-camera"></i><i></i></button></li>
        <li class="grid-item"><button>BLANK SPACE <i class="glyphicon glyphicon-th-large"></i></button></li>
        <li class="grid-item"><button @click="insertTable()">Table <i class="glyphicon glyphicon-calendar"></i></button></li>
-        <li class="grid-item"><button@click="insertText()">Text<i class="glyphicon glyphicon-text-size"></i></button></li>
+        <li class="grid-item"><button @click="insertText()">Text<i class="glyphicon glyphicon-text-size"></i></button></li>
             <li class="grid-item"><input type="text" placeholder="insert video link" @input="updateVideoLink" style="color: black;" :value="VideoLink"><button @click="insertVideo">Video<i class="glyphicon glyphicon-film"></i></button></li>
     </ul>
     <button class='closeBTN' @click="closeFeatureAdd()">CLOSE</button>
   </div>
   </template>
   <script> 
+
   import App from '../app.vue'
   const axios = require('axios');
 export default {
@@ -77,6 +78,7 @@ export default {
             },
              headers: {'Content-Type': 'application/json'}
                  }).then(function (response) {
+                  
                     window.location.href="/webcodes"
                 })
             .catch(function (error) {

@@ -1,28 +1,105 @@
-<h2>Log in</h2>
-
+<!-- <div style="height: 100vh; width: 100vw;" class="col align-items-center justify-content-center bg-warning text-white">
+    
+  <h1 class="text-center">Design or Develop</h1>
+  <div class="container-fluid">
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="row">
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :email %><br/>
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
-
+</div>
+<div class="row">
   <div class="field">
     <%= f.label :password %><br />
     <%= f.password_field :password, autocomplete: "current-password" %>
   </div>
-
+</div>
+  
+<div class="container" >
+    <div class="row" style="background-color: rgb(255, 0, 0); font-size: 10vh;">
+        <%= link_to "Sign up", signup_please_guys_path   %>
+    </div>
+<div class="row">
   <% if devise_mapping.rememberable? %>
     <div class="field">
       <%= f.check_box :remember_me %>
       <%= f.label :remember_me %>
     </div>
   <% end %>
-    <div> 
-      <%= link_to "Sign in with Github", user_github_omniauth_authorize_path %>
-    </div>
+</div>
+
+ 
+
+
   <div class="actions">
     <%= f.submit "Log in" %>
   </div>
 <% end %>
+</div>
 
 <%= render "devise/shared/links" %>
+</div>
+</div> -->
+<svg id="svg-filter" style="display: none;">
+    <filter id="svg-blur">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2"></feGaussianBlur>
+    </filter>
+  </svg>
+<div style="background-color: #33b5e5; height: 100vh;" >
+<div class="container pt-3 justify-content-space-between " >
+  <div class="justify-content-space-between align-items-center">
+
+
+      <div class="card border-info text-center" style="box-shadow: 3px 3px rgb(224, 28, 208), -1em 0 .4em rgb(224, 28, 208);">
+        <div class="card-header">
+          Sign in to continue
+        </div>
+        <div class="card-body justify-content-space-between " style="height: 90vh;">
+          <div class="d-flex col justify-content-center align-items-center">
+           <img class="rounded-circle " style="filter: url(#svg-blur);" height="250px" width="250px" src="https://fsb.zobj.net/crop.php?r=Laz3uHsqa95vbXfbzgxxPGaF4pk-GvT9Z3Yu994QOUI2ChdCeKvRkxGz7LbBKFyp8-RRwJEw5RIyMfqjblVQJRI18EjG3ClYaG5dCDnMBgEihqpYR8gR8_7Zt5wVTU7xcMDz9n7w-zLwm_zOmIMyZVv-by4yewr70eJVl6A8Va0nyi0VqJZ1KCjNJBg"></img>
+         </div>       
+          <h4 class="text-center"></h4>
+          <form class="form-signin">
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control mb-2", :placeholder => "Email Address Please", :style => "text-align:center;" %>
+            <%= f.password_field :password, autocomplete: "current-password", :class => "form-control mb-2", required: true, :placeholder => "Please Enter Your Password", :style => "text-align:center;" %>
+            <div class="col">
+                <label class="checkbox justify-center"></label>
+                <div class="justify-center">
+                    <% if devise_mapping.rememberable? %>
+                    <div class="field">
+                      <%= f.check_box :remember_me %>
+                      <%= f.label :remember_me %>
+                    </div>
+                  <% end %>
+                </div>
+             
+
+            <!-- <button class="btn-raised success-color col-lg text-white btn-large"> </button> -->
+         
+            <!-- <button type="button" class="btn btn-git stylish-color-dark text-white btn-large col-lg"> -->
+               
+              <!-- </button> -->
+ 
+              </div>
+
+  <%= link_to "Sign up", signup_please_guys_path, :class => "btn btn-raised success-color col-lg text-white btn-large"%>
+  <%= link_to new_user_registration_path, :class => "btn btn-git stylish-color-dark text-white btn-large col-lg" do %>
+  <i class="fab fa-github pr-1"></i>
+  <span>Github</span>
+  <% end %>
+
+  <%= f.submit "Log in", :class => "btn btn-raised  deep-orange darken-2 col-lg text-white btn-large" %>
+
+          <% end %>
+          
+          </form>
+
+      
+        </div>
+      <!-- </div>
+      <%= link_to "Sign up", signup_please_guys_path   %>
+      <span class="float-right">Create an account </span>
+    </div> -->
+</div>

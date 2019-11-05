@@ -68,3 +68,7 @@ gem "webpacker", "~> 4.0"
 gem "devise", "~> 4.7"
 
 gem "omniauth-github", "~> 1.3"
+
+gem "cloudinary", "~> 1.12"
+
+gem "activestorage-cloudinary-service", "~> 0.2.3"
