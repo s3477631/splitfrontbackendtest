@@ -50,9 +50,9 @@
   </splitpanes>
   </pane>
 </splitpanes>
-<app-add-feature :showFeatureAdd="showFeatureAdd" @table-add="addTable" @video-add="addVideo" @text-add="addText"  :firstRow="ShowPositions" @update-close="update" @picture-add="addPictureUp"></app-add-feature>
+<app-add-feature :showFeatureAdd="showFeatureAdd" @table-add="addTable" @video-add="addVideo" @text-add="openTextmenu"  :firstRow="ShowPositions" @update-close="update" @picture-add="addPictureUp"></app-add-feature>
 <add-picture-menu :showPictureAdd="showPictureAdd" @inject-image="addImage"></add-picture-menu>
-<add-text-menu :showTextMenu="showTextMenu"></add-text-menu>
+<add-text-menu @childToParent="onChildClick"  :showTextMenu="showTextMenu"></add-text-menu>
   </div>
 </template>
 
@@ -72,6 +72,7 @@ export default {
   data: function () {
     return {
       showTextMenu: false,
+      inputtedText: [],
       inputtedImage: '',
       selectedPane: '',
       imageAdded: null,
@@ -97,9 +98,21 @@ export default {
     }
   },
   methods: {
+       onChildClick (value) {
+            this.inputtedText.push(value.key)
+            this.addText()
+    },
+    openTextmenu(AddTexte){
+         this.showTextMenu=AddTexte
+    },
     addText(AddTexte){
-      this.showTextMenu=AddTexte
-      this.selectedPane.innerHTML = '<div style="width: 100%; height: 100%; background-color: lightskyblue; color: white; font-size: 6vh;">' + 'fuckkkkdfs dfsflsdkjflksdj ' + '</div>'
+      var addedInput = (this.inputtedText).toString()
+      console.log(addedInput)
+     var alteredInput =  addedInput.replace(/\,/gm,'')
+      this.selectedPane.innerHTML = '<div style="width: 100%; height: 100%; background-color: lightskyblue; color: white; font-size: 6vh;">' + alteredInput + '</div>'
+    },
+    onClickChild (value) {
+      console.log(value) // someValue
     },
     addVideo(VideoAdd){
     this.selectedPane.innerHTML = '<iframe style="width: 100%; height: 100%;" src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'

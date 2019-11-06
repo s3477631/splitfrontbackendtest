@@ -1,6 +1,8 @@
 <template>
 <div v-if="showTextMenu" class="ListContainer"> 
-    <textarea @change="update" :value="inputText"></textarea>
+
+    <input type="text" v-model="childMessage" @keyup="emitToParent"/>
+    <button>Submit</button>
   </div>
 </template>
 <script>
@@ -12,17 +14,25 @@ export default {
             'type': Boolean
         }, 
     },
-      data: function () {
+      data(){
         return{
-            inputText: ''
+          childMessage: '',
         }
+      },
         methods: {
-            update(value)
-        }
+         emitToParent (event) {
+      this.$emit('childToParent', event)
     }
+        }
 }
 </script>
 <style scoped>
+button {
+    width: 100%; 
+    height: 10vh;
+    color: white; 
+    background-color: rgb(253, 115, 34);
+}
 .ListContainer{
     height: 40vh; 
     width: 80vw; 
@@ -39,7 +49,7 @@ textarea {
     height: 30vh; 
     width: 80vw;
     color: white; 
-    font-size: 4vh; 
+    font-size: 7vh; 
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     background-color: skyblue; 
 }

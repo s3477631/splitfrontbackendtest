@@ -1,7 +1,7 @@
 <template>
 <div v-if="showFeatureAdd" class="ListContainer">   
     <ul class="grid-container">
-      <li class="grid-item"><button @click="showPositions()" @onTap="showPositions()">FINISH<i class="glyphicon glyphicon-flag"></i></button></li>
+      <li class="grid-item"><button @click="showPositions()" @onTap="showPositions()"><i class="fas fa-flag-checkered"></i></button></li>
       <li class="grid-item"><button @click="openpictures()" @onTap="openpictures()"><i class="glyphicon glyphicon-picture"></i>|<i class="glyphicon glyphicon-camera"></i><i></i></button></li>
        <li class="grid-item"><button>BLANK SPACE <i class="glyphicon glyphicon-th-large"></i></button></li>
        <li class="grid-item"><button @click="insertTable()">Table <i class="glyphicon glyphicon-calendar"></i></button></li>
