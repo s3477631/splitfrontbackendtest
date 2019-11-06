@@ -7,16 +7,10 @@ Rails.application.routes.draw do
       root 'landing#index', as: 'authenticated_root'
       end
       unauthenticated do 
-        # root 'devise/', as: 'unauthenticated_root'
+ 
         root 'devise/sessions#new', as: 'unauthenticated_root'
       end
      end
-      #  get '/dragdrop', to: 'landing#index'
-    # devise_scope :user do 
-    #   get 'signup', to: 'devise/registrations#new'
-    # end
-  
-   
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
 
 end

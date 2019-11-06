@@ -1,38 +1,53 @@
 
- <div class="card border-info text-center young-passion-gradient h-100 justify-content-center">
-  <div class="col-md-6 align-self-center">
-     
-        <div class="card-body bg-success">
-            <div class="card-header bg-warning text-white mb-4">
-                Sign in to continue
-              </div>
-            <div class="col justify-content-center align-items-center mb-3">
-              <%= image_tag("layd.png", :alt => "Layd Logo", :style => "height: 40vh; width: 30vw;") %>
-        </div>
-       
-          <form class="form-signin">
-           
-          
-            
-              <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control mb-2", :placeholder => "Email Address Please", :style => "text-align:center;" %>
-            <%= f.password_field :password, autocomplete: "current-password", :class => "form-control mb-4", required: true, :placeholder => "Please Enter Your Password", :style => "text-align:center;" %>
-  
-            <button class="btn btn-lg btn-primary btn-block mb-1" type="submit">Sign in</button>
-            <label class="checkbox float-left">
-              <input type="checkbox" value="remember-me">
-              <% end %>
-              Remember me
-            </label>
-            <a href="#" class="float-right">Need help?</a>
-          </form>
-        </div>
-      </div>
-     <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "Sign in using Github", user_github_omniauth_authorize_path %><br />
-<% end %>
- </div>
-    </div>
+<!-- Card -->
+<div class="purple-gradient">
+<div class="d-flex justify-content-center align-items-center mb-3">
+    <%= image_tag("leftImage.png", :alt => "Layd Logo", :style => "height: 60vh; width: 50vw;", :class => "img-fluid") %>
+
+    <%= image_tag("rightImage.png", :alt => "Layd Logo", :style => "height: 60vh; width: 50vw;", :class => "img-fluid") %>
+</div>
+<%= render 'searchbar', user: @user %>
+<div class="col align-items-center w-70 mt-2">
+<div class="card">
+  <!-- Card content -->
+  <div class="card-body">
+
+    <!-- Title -->
+    <h4 class="card-title"><a></a></h4>
+    <!-- Text -->
+    <table class="table table-striped " cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Role</th>
+          <th scope="col">Status</th>
+          <th scope='col'>Price</th>
+          <th scope='col'>Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Devin</td>
+          <td>Developer</td>
+          <td>Looking for work</td>
+          <td>$50/hr</td>
+          <td>5 stars</td>
+        </tr>
+        <tr>
+          <td>Dreams can come True</td>
+          <td>designer</td>
+          <td>Looking for Developer</td>
+          <td>$40/hr</td>
+          <td>3 stars</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <%= render 'landingview', user: @user %>
+    <div>
   </div>
 
-
+</div>
+</div>  
+</div>  
