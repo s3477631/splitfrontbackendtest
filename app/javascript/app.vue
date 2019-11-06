@@ -99,17 +99,20 @@ export default {
   },
   methods: {
        onChildClick (value) {
-            this.inputtedText.push(value.key)
+            this.inputtedText.push(value)
             this.addText()
+            console.log(value)
     },
     openTextmenu(AddTexte){
          this.showTextMenu=AddTexte
     },
     addText(AddTexte){
       var addedInput = (this.inputtedText).toString()
-      console.log(addedInput)
+      if (addedInput != 'Shift' && addedInput != 'Backspace'){
      var alteredInput =  addedInput.replace(/\,/gm,'')
       this.selectedPane.innerHTML = '<div style="width: 100%; height: 100%; background-color: lightskyblue; color: white; font-size: 6vh;">' + alteredInput + '</div>'
+      }
+
     },
     onClickChild (value) {
       console.log(value) // someValue
