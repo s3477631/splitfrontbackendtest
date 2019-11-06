@@ -7,8 +7,8 @@ Rails.application.routes.draw do
       root 'landing#index', as: 'authenticated_root'
       end
       unauthenticated do 
+        # root 'devise/', as: 'unauthenticated_root'
         root 'devise/sessions#new', as: 'unauthenticated_root'
-        get '/signpeopleup', to: 'devise/registrations#new', as: 'signup_please_guys'
       end
      end
       #  get '/dragdrop', to: 'landing#index'
