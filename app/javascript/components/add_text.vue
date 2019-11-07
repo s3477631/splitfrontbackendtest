@@ -25,15 +25,13 @@ export default {
          emitToParent (event) {
              var filter = event.keyCode
 
-             if(filter != "Shift" && filter != "Backspace" && filter != "Meta"){
-      this.$emit('childToParent', filter)
+             switch(filter){
+                 case 81: 
+                     this.$emit('childToParent', 'q')
+                 break;
              }
-             },
-             closeTextMenu(){
-                 let ShownFeature = false
-                 this.$emit("addtext_close", ShownFeature)
-             }
-            }
+         } 
+         }
             }
 </script>
 <style scoped>
