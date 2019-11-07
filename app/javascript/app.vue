@@ -54,7 +54,7 @@
 <add-picture-menu :showPictureAdd="showPictureAdd" @inject-image="addImage"></add-picture-menu>
 <add-text-menu @childToParent="onChildClick" @addtext_close="hideTextmenu"  :showTextMenu="showTextMenu"></add-text-menu>
  <add-video @videoToMain="onVideoenter" @add-video-close="hideVideomenu" :showVideoMenu="showVideoMenu"></add-video>
-  </div>
+  </div>  
 </template>
 
 

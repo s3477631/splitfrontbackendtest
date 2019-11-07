@@ -1,9 +1,9 @@
 <template>
 <div v-if="showTextMenu" class="ListContainer"> 
 <div class="mb-5">
-    <input style="width: 100%;" autofocus type="text" v-model="childMessage" @keyup="emitToParent"/>
+    <input style="width: 100%;" autofocus type="text" v-model="childMessage" @keydown="emitToParent"/>
 </div>
-    <button @click="closeTextMenu()">Submit</button>
+    <button @click="closeTextMenu">Submit</button>
   
   </div>
 </template>
@@ -24,10 +24,18 @@ export default {
         methods: {
          emitToParent (event) {
              var filter = event.key
-      this.$emit('childToParent', filter)
+             if (filter!== undefined) {
+             if(filter != "Shift" && filter != "Backspace" && filter != "Meta" && filter != "Enter"){
+                this.$emit('childToParent', filter)
+             }
+             }
+             },
+             closeTextMenu(){
+                 let ShownFeature = false
+                 this.$emit("addtext_close", ShownFeature)
+             }
             }
             }
-}
 </script>
 <style scoped>
 button {
