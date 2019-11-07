@@ -23,16 +23,11 @@ export default {
       },
         methods: {
          emitToParent (event) {
-             var filter = event.keyCode
-
-             switch(filter){
-                 case 81: 
-                     this.$emit('childToParent', 'q')
-                 break;
-             }
-         } 
-         }
+             var filter = event.key
+      this.$emit('childToParent', filter)
             }
+            }
+}
 </script>
 <style scoped>
 button {
