@@ -3,10 +3,8 @@
     <ul class="grid-container">
       <li class="grid-item"><button @click="showPositions()" @onTap="showPositions()"><i class="fas fa-flag-checkered"></i></button></li>
       <li class="grid-item"><button @click="openpictures()" @onTap="openpictures()"><i class="glyphicon glyphicon-picture"></i>|<i class="glyphicon glyphicon-camera"></i><i></i></button></li>
-       <li class="grid-item"><button>BLANK SPACE <i class="glyphicon glyphicon-th-large"></i></button></li>
-       <li class="grid-item"><button @click="insertTable()">Table <i class="glyphicon glyphicon-calendar"></i></button></li>
         <li class="grid-item"><button @click="insertText()">Text<i class="glyphicon glyphicon-text-size"></i></button></li>
-            <li class="grid-item"><input type="text" placeholder="insert video link" @input="updateVideoLink" style="color: black;" :value="VideoLink"><button @click="insertVideo">Video<i class="glyphicon glyphicon-film"></i></button></li>
+        <li class="grid-item"><button @click="insertVideo()">Video<i class="glyphicon glyphicon-film"></i></button></li>
     </ul>
     <button class='closeBTN' @click="closeFeatureAdd()">CLOSE</button>
   </div>
@@ -15,7 +13,7 @@
 
   import App from '../app.vue'
   const axios = require('axios');
-export default {
+    export default {
     name: "add_features",
     props: {
         showFeatureAdd:{
@@ -35,19 +33,10 @@ export default {
         this.$emit("text-add", ShownText);
         this.closeFeatureAdd()
         },
-        insertTable(){
-        let ShownTable = true 
-        this.$emit("table-add", ShownTable);
-        this.closeFeatureAdd()
-        },
         insertVideo(){
-         let ShownFeature = false
+         let ShownFeature = true
         this.$emit("video-add", ShownFeature);
         this.closeFeatureAdd()
-        },
-        updateVideoLink(event){
-           console.log(event.target.value)
-
         },
           closeFeatureAdd(){
         let ShownFeature = false
@@ -106,8 +95,8 @@ export default {
 
 .grid-container{
     display: grid; 
-    grid-template-columns: 26.67vw 26.67vw 26.67vw;
-    grid-template-rows: 16vh 16vh;
+    grid-template-columns: 40vw 40vw;
+    grid-template-rows: 21vh 21vh;
 }
 
 
@@ -122,7 +111,7 @@ export default {
      justify-self: space-between;
   }
 .ListContainer{
-    height: 40vh; 
+    height: 50vh; 
     width: 80vw; 
     background-color: red;
      position: relative; 

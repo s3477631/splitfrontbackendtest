@@ -50,9 +50,10 @@
   </splitpanes>
   </pane>
 </splitpanes>
-<app-add-feature :showFeatureAdd="showFeatureAdd" @table-add="addTable" @video-add="addVideo" @text-add="openTextmenu"  :firstRow="ShowPositions" @update-close="update" @picture-add="addPictureUp"></app-add-feature>
+<app-add-feature :showFeatureAdd="showFeatureAdd"  @video-add="openVideomenu" @text-add="openTextmenu" :firstRow="ShowPositions" @update-close="update" @picture-add="addPictureUp"></app-add-feature>
 <add-picture-menu :showPictureAdd="showPictureAdd" @inject-image="addImage"></add-picture-menu>
-<add-text-menu @childToParent="onChildClick"  :showTextMenu="showTextMenu"></add-text-menu>
+<add-text-menu @childToParent="onChildClick" @addtext_close="hideTextmenu"  :showTextMenu="showTextMenu"></add-text-menu>
+ <add-video @videoToMain="onVideoenter" @add-video-close="hideVideomenu" :showVideoMenu="showVideoMenu"></add-video>
   </div>
 </template>
 
@@ -63,6 +64,9 @@ import AddFeatureComponent from './components/add_feature_menu.vue'
 import { Splitpanes, Pane } from 'splitpanes'
 import AddPictureMenu from './components/add_pictures.vue'
 import AddText from './components/add_text.vue'
+import AddVideo from './components/add_video.vue'
+
+
 
 Vue.component('splitpanes', Splitpanes); 
 Vue.component('pane', Pane)
@@ -71,10 +75,12 @@ export default {
   name: "app",
   data: function () {
     return {
+      showVideoMenu: false,
       showTextMenu: false,
       inputtedText: [],
       inputtedImage: '',
       selectedPane: '',
+      videoUrl: '',
       imageAdded: null,
       showFeatureAdd: false,
       destroyVue: true,
@@ -98,6 +104,22 @@ export default {
     }
   },
   methods: {
+    hideVideomenu(CloseVideo){
+      this.showVideoMenu=CloseVideo
+    },
+    hideTextmenu(CloseText){
+      this.showTextMenu=CloseText
+    },
+
+      onVideoenter(value){
+        this.videoUrl = value
+            this.selectedPane.innerHTML = '<iframe style="width: 100%; height: 100%;" src="' + this.videoUrl  + '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'
+      },
+
+      openVideomenu(OpenVideo){
+        this.showVideoMenu=OpenVideo
+      },
+
        onChildClick (value) {
             this.inputtedText.push(value)
             this.addText()
@@ -112,7 +134,6 @@ export default {
      var alteredInput =  addedInput.replace(/\,/gm,'')
       this.selectedPane.innerHTML = '<div style="width: 100%; height: 100%; background-color: lightskyblue; color: white; font-size: 6vh;">' + alteredInput + '</div>'
       }
-
     },
     onClickChild (value) {
       console.log(value) // someValue
@@ -120,9 +141,7 @@ export default {
     addVideo(VideoAdd){
     this.selectedPane.innerHTML = '<iframe style="width: 100%; height: 100%;" src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'
     },
-    addTable(TableAdd){
-      this.selectedPane.innerHTML = "<table style='width: 100%;'> <thead><tr style='background-color: orange; color: white; font-size: 3vh;'><th>Product_Name</th><th>Product_description</th><th>Product_price</th><th>Product_Qty</th></tr></thead><tbody><tr style='font-size:2vh; background-color: blue; color: white;'><td>Chocolate</td><td>Delicious stuff you eat</td><td>$9.50</td><td>10</td></tr></tbody> </table>"
-    },
+
     addImage(ImageAdd){
       var image = new Image();
       var reader = new FileReader();
@@ -240,13 +259,11 @@ watch: {
         Pane,
         'app-add-feature':AddFeatureComponent, 
         'add-picture-menu': AddPictureMenu,
-        'add-text-menu': AddText
-
+        'add-text-menu': AddText,
+        'add-video': AddVideo
   }
 }
-
 </script>
-
 <style scoped>
 .valueOuput{
   font-size: 4vw;
@@ -264,7 +281,4 @@ watch: {
   margin-top: -60px;
   display: flex;
 }
-
-
-
 </style>

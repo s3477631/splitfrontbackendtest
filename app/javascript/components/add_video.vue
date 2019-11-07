@@ -1,39 +1,36 @@
 <template>
-<div v-if="showTextMenu" class="ListContainer"> 
+<div v-if="showVideoMenu" class="ListContainer"> 
 <div class="mb-5">
-    <input style="width: 100%;" autofocus type="text" v-model="childMessage" @keyup="emitToParent"/>
+    <input style="width: 100%;" autofocus type="text" v-model="videolinkurl" @keyup="emitVideoApp"/>
 </div>
-    <button @click="closeTextMenu()">Submit</button>
+    <button @click="closeVideo">Submit</button>
   
   </div>
 </template>
 <script>
 import App from '../app.vue'
 export default {
-    name: 'add_text',
+    name: 'add_video',
      props:{
-        showTextMenu:{
+        showVideoMenu:{
             'type': Boolean
         }, 
     },
       data(){
         return{
-          childMessage: '',
+          videolinkurl: '',
         }
       },
         methods: {
-         emitToParent (event) {
-             var filter = event.key
-             if(filter != "Shift" && filter != "Backspace" && filter != "Meta"){
-      this.$emit('childToParent', filter)
-             }
-             },
-             closeTextMenu(){
+         emitVideoApp (event) {
+      this.$emit('videoToMain', this.videolinkurl)
+             }, 
+             closeVideo(){
                  let ShownFeature = false
-                 this.$emit("addtext_close", ShownFeature)
+                 this.$emit('add-video-close', ShownFeature)
              }
-            }
-            }
+  }
+}
 </script>
 <style scoped>
 button {
