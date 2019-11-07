@@ -1,10 +1,7 @@
 <template>
 <div v-if="showPictureAdd" class="ListContainer"> 
-  <div @click="openCamera()" class="FromCamera"> 
-      <span>Camera <i class="glyphicon glyphicon-camera"></i></span>
-      </div>
-      <div @click="openStorage()" class="FromStorage">
-          <span>Storage <i class="glyphicon glyphicon-folder-open"></i>
+      <div @click="openStorage()" class="FromStorage row justify-self-center align-items-center">
+          <span>From Storage <i class="fas fa-folder"></i>
           <input type="file" @change="addedImage" ref="inputtedImage" id="realInput" value=""/>
           </span>
           </div>
@@ -55,14 +52,8 @@ i{
      box-shadow: 5px 5px 5px 35px #868686;
     text-align: center;
     }
-.FromCamera{
-    height: 50%;
-    width: 100%;
-    background-color: rgb(0, 110, 255);
-    
-}
 .FromStorage{
-    height: 50%;
+    height: 100%;
     width: 100%;
     background-color: rgb(255, 94, 0);
 }

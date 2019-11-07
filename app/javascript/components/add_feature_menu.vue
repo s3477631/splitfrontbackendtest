@@ -2,9 +2,9 @@
 <div v-if="showFeatureAdd" class="ListContainer">   
     <ul class="grid-container">
       <li class="grid-item"><button @click="showPositions()" @onTap="showPositions()"><i class="fas fa-flag-checkered"></i></button></li>
-      <li class="grid-item"><button @click="openpictures()" @onTap="openpictures()"><i class="glyphicon glyphicon-picture"></i>|<i class="glyphicon glyphicon-camera"></i><i></i></button></li>
-        <li class="grid-item"><button @click="insertText()">Text<i class="glyphicon glyphicon-text-size"></i></button></li>
-        <li class="grid-item"><button @click="insertVideo()">Video<i class="glyphicon glyphicon-film"></i></button></li>
+      <li class="grid-item"><button @click="openpictures()" @onTap="openpictures()"><i class="fas fa-folder"></i></button></li>
+        <li class="grid-item"><button @click="insertText()">Text<i class="fas fa-font"></i></button></li>
+        <li class="grid-item"><button @click="insertVideo()">Video<i class="fab fa-youtube"></i></button></li>
     </ul>
     <button class='closeBTN' @click="closeFeatureAdd()">CLOSE</button>
   </div>

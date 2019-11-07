@@ -30,8 +30,9 @@
     
               <button class="btn btn-lg btn-primary btn-block mb-1" type="submit">Sign in</button>
               <div class="row justify-content-center align-items-space-around">
-                  <%= link_to user_github_omniauth_authorize_path do  %>
-                    <i class="fab fa-github pr-1">
+                  <%= link_to user_github_omniauth_authorize_path do %>
+                   <button class="btn btn-elegant" disabled> <i class="fab fa-github pr-1"></i>Github</button>
+          
                 <% end %>
                   <button type="button" style="background-color:  #2867B2; color: white;"  class="btn btn-li"><i class="fab fa-linkedin-in pr-1" ></i> Linkedin</button>
                

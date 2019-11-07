@@ -23,7 +23,8 @@ export default {
       },
         methods: {
          emitToParent (event) {
-             var filter = event.key
+             var filter = event.keyCode
+
              if(filter != "Shift" && filter != "Backspace" && filter != "Meta"){
       this.$emit('childToParent', filter)
              }
